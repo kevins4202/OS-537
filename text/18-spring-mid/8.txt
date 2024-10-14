@@ -1,0 +1,64 @@
+Problem XXV: Assume the same printer() function (from above), but this slightly changed main():
+int main(int argc, char *argv[]) {
+  pthread_t p[5];
+  for (int i = 0; i < 5; i++) {
+
+   char c = ’a’ + i;
+
+   pthread_create(&p[i], NULL, printer, (void *) &c);
+  }
+
+ for (int i = 0; i < 5; i++)
+    pthread_join(p[i], NULL);
+   return 0; 
+}
+Assuming calls to all library routines succeed, which of the following outputs are possible? To answer: Fill in A if possible, B for not possible.
+121. abcde 
+122. edcba 
+123. cccde 
+124. eeeee 
+125. aaaaa
+
+Problem XXVI: Assume the following multi-threaded memory allocator, roughly sketched out as follows: int bytes_left = MAX_HEAP_SIZE;
+pthread_cond_t c;
+pthread_mutex_t m;
+
+void *allocate(int size) {
+  pthread_mutex_lock(&m);
+  while (bytes_left < size)
+
+   pthread_cond_wait(&c, &m);
+  void *ptr = ...; // get mem from internal data structs
+  bytes_left -= size;
+  pthread_mutex_unlock(&m);
+  return ptr;
+
+}
+void free(void *ptr, int size) {
+  pthread_mutex_lock(&m);
+  bytes_left += size;
+  pthread_cond_signal(&c);
+  pthread_mutex_unlock(&m);
+
+}
+Assume all of memory is used up (i.e., bytes left is 0). Then:
+
+One thread (T1) calls allocate(100)
+Some time later, a second thread (T2) calls allocate(1000)
+Finally, some time later, a third thread (T3) calls free(200)
+
+Assuming all calls to thread library functions work as expected, which of the following are possible just after this sequence of events has taken place?
+To answer: Fill in A if possible, B for not possible.
+126. T1 and T2 remain blocked inside allocate()
+127. T1 becomes unblocked, gets 100 bytes allocated, and returns from allocate() 
+128. T2 becomes unblocked, gets 1000 bytes allocated, and returns from allocate() 
+129. T3 becomes blocked inside free()
+130. T1, T2, and T3 become deadlocked
+
+Problem XXVII: A Semaphore is a useful synchronization primitive. Which of the following statements are true of semaphores?
+To answer: Fill in A if true, B for not true.
+131. Each semaphore has an integer value
+132. If a semaphore is initialized to 1, it can be used as a lock
+133. Semaphores can be initialized to values higher than 1
+134. A single lock and condition variable can be used in tandem to implement a semaphore 
+135. Calling sem post() may block, depending on the current value of the semaphore

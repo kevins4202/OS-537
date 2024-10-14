@@ -1,0 +1,47 @@
+43. In that same scenario (single block append), “just the updated inode is written to disk.
+Sometimes we refer to this as a ______”
+(a) file system inconsistency (the inode and data bitmap disagree)
+(b) file system inconsistency (the data block and inode disagree)
+(c) file system inconsistency (the directory and inode disagree)
+(d) file system inconsistency (the data bitmap and inode bitmap disagree)
+(e) file system confusion
+44. “What we’d like to do ideally is move the file system from one consistent state (e.g., before
+the file got appended to) to another ______ (e.g., after the relevant blocks have been written to
+disk)”
+(a) computationally
+(b) passionately
+(c) logically
+(d) atomically
+(e) sequentially
+45. “Early file systems took a simple approach to crash consistency. Basically, they decided to
+let inconsistencies happen and then fix them later (when rebooting). A classic example of this
+lazy approach is found in a tool that does this: fsck. … However, fsck has a big and perhaps
+more fundamental problem: it is too ______
+(a) slow
+(b) complicated
+(c) redundant
+(d) incoherent
+(e) fast
+46. “The basic journaling protocol includes the following three phases: journal write, journal
+commit, and ______ (where the contents of the update are written to their final on-disk
+locations).”
+(a) transaction
+(b) full write
+(c) journal delete
+(d) checkpoint
+(e) phase out
+47. “A simpler (and more common) form of journaling is sometimes called ordered journaling
+(or metadata journaling) except that ______ is/are not written to the journal.”
+(a) inodes
+(b) user data
+(c) directory data
+(d) bitmaps
+(e) information
+48. “In ordered (or metadata) journaling, data must be written to disk before _______ in order to
+ensure that a committed inode does not point to garbage data.”
+(a) the checkpoint
+(b) freeing space in the journal
+(c) the transaction commit block
+(d) anything else
+(e) sunrise
+

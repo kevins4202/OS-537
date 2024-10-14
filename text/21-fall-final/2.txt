@@ -1,0 +1,44 @@
+13. “Thus, we can conclude that the maximum bandwidth obtained during sequential writing to
+a 2-way mirrored array is ______” [Assume here there are N disks, and that a single disk
+delivers S MB/s of disk bandwidth]
+(a) S MB/s
+(b) 2 x S MB/s
+(c) N x S MB/s
+(d) N x S / 2 MB/s
+(e) N x S x S MB/s
+14. “For example, in RAID-4, if we had blocks of size 2 bits (yes, this is still quite a bit smaller
+than a 4KB block, but you get the picture), they might look something like this:
+Block0 Block1 Block2 Block3 Parity”
+00 10 11 10 _____
+(a) 00
+(b) 01
+(c) 10
+(d) 11
+(e) None of the above
+15. “RAID-4 uses a disk for parity information for every group of disks it is protecting. Thus, our
+useful capacity for a RAID group is ______.” [Assume N disks, and B bytes of data per disk]
+(a) N x B
+(b) N
+(c) B
+(d) N x (B - 1)
+(e) (N - 1) x B
+16. “Random read performance of RAID-5 (as compared to RAID-4) is ______”
+(a) a little better
+(b) a little worse
+(c) a lot better
+(d) a lot worse
+(e) about the same
+17. “RAID Level(s) _____ encounter(s) the ‘small write’ problem.”
+(a) 0
+(b) 1
+(c) 4
+(d) 5
+(e) 4 and 5
+18. “A single write (to a RAID-4) requires _____ read(s) and then ______ write(s) to the
+underlying disks.” [assuming subtractive parity]
+(a) 2, 1
+(b) 1, 2
+(c) 2, 2
+(d) 1, 1
+(e) None of the above
+

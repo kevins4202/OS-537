@@ -1,0 +1,39 @@
+26. ZOS, as mentioned above (Question 25), combines base/bounds and paging. Assume the following:
+a 32-bit address space with 1-KB pages. Assume each page table entry (PTE) is 4 bytes. Assume there are
+100 processes in the system. If each process uses only one virtual page, what is the worst-case total size of all
+of these page tables?
+a) 16 MB
+b) 160 MB
+c) 1600 MB
+d) 16 GB
+e) None of the above
+27. ZOS uses a new type of scheduler called a proportional-share scheduler. This scheduler makes sure each
+process gets a certain amount of CPU time, based on how many “tickets” it has. For example, if process A has
+2 tickets, and process B has 1, A should get twice as much CPU time as B. Note that a process cannot change
+how many tickets it has, and all jobs only use the CPU (there is no I/O in this example). Which of the following
+traces (which each show which job was scheduled at each quantum over time) does not show the behavior of
+a proportional-share scheduler?
+a) AABAABAABAABAA
+b) ABABABABABAB
+c) AAAAAAAAAABBBBB
+d) ABBBABBBABBBABBB
+e) None of the above (they all could be traces from a proportional share scheduler)
+28. ZOS uses a new mechanism instead of timer interrupts. Instead of interrupting the CPU every so many
+milliseconds, the ZOS hardware is programmed to interrupt the CPU after every N TLB misses. How creative!
+As compared to the timer, this approach (choose one):
+a) Is equally eﬀective
+b) Is faster to program
+c) Is risky
+d) Requires less memory
+e) Requires virtual memory support
+29. A later version of ZOS uses a diﬀerent, clever approach to sharing the TLB among active processes.
+Assume the hardware does not have an address space identifier (or process identifier) field in the TLB. Instead
+of flushing the TLB when switching between processes, ZOS ensures that each process in the system uses
+diﬀerent (unique) VPNs as compare to any other process. Which of the following is not true about this
+approach:
+a) Allows for fully flexible use of the virtual address space by each process
+b) Allows for faster context switching (as compared to the TLB flushing approach)
+c) Allows for fully flexible use of physical memory
+d) Allows sharing of code pages between processes
+e) None of the above (all are true)
+

@@ -1,0 +1,47 @@
+Problem I: A program’s main function is as follows:
+
+int main(int argc, char *argv[]) {
+  char *str = argv[1];
+  while (1)
+
+   printf("%s", str);
+  return 0;
+
+}
+
+Two processes, both running instances of this program, are currently running (you can assume nothing else of relevance is, except perhaps the shell itself). The programs were invoked as follows, assuming a “parallel command” as per project 2a (the wish shell):
+
+wish> main a && main b
+
+Below are possible (or impossible?) screen captures of some of the output from the beginning of the run of the programs. Which of the following are possible? To answer: Fill in A for possible, B for not possible.
+
+1. abababab
+2. aaaaaaaa
+3. bbbbbbbb 
+4. aaaabbbb 
+5. bbbbaaaa 
+
+Problem II: Here is source code for another program, called increment.c:
+
+int value = 0;
+int main(int argc, char *argv[]) {
+
+ while (1) {
+    printf("%d", value);
+    value++;
+}
+return 0; }
+
+While increment.c is running, another program, reset.c, is run once as a separate process. Here is the source code of reset.c:
+
+int value;
+int main(int argc, char *argv[]) {
+value = 0;
+return 0; }
+Which of the following are possible outputs of the increment process? To answer: Fill in A for possible, B for not possible.
+
+6. 012345678 ...
+7. 012301234 ...
+8. 012345670123 ... 
+9. 01234567891011 ...
+10. 123456789 ...

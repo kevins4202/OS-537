@@ -1,0 +1,45 @@
+PART I: We begin with BeOS (“Be OS”), a minimal operating system. Each design decision in
+BeOS is meant to simplify. Why? Binus, well, she liked keeping things simple and to the point.
+Very direct, that Binus!
+1. BeOS keeps track of a small amount of information about each running process in a data structure called
+the “process list”. However, to keep the amount of information in the process list small, Binus reduced the
+number of states a process could be in. Specifically, in BeOS, there are only two states a process can be in:
+RUNNING and BLOCKED. What process state found in most OSes was removed from BeOS?
+a) STOPPED
+b) READY
+c) ACTIVE
+d) WAITING
+e) LOCKED
+2. To keep scheduling simple in BeOS, Binus chose the FIFO policy (first in, first out) to decide which
+process to run. Which one of the following statements about FIFO scheduling is true?
+a) It reduces average turnaround time
+b) It reduces average response time
+c) It suﬀers from the “convoy” problem
+d) It is a preemptive scheduling policy
+e) It is diﬀerent from the FCFS policy
+3. Assuming the BeOS FIFO scheduling approach, calculate the turnaround time for job B, assuming the
+following: job A arrives at time T=0, and needs to perform 10 seconds of compute; job B arrives at time T=5,
+and needs to perform 20 seconds of compute; job C arrives at time T=10, and needs to perform 5 seconds of
+compute. The jobs perform no I/O.
+a) 10
+b) 20
+c) 30
+d) 25
+e) None of the above
+4. For simplicity, BeOS originally used a “base and bounds” approach to virtual memory. Which one of
+the following is true about this approach?
+a) It translates addresses more slowly than most other approaches
+b) It prevents internal fragmentation
+c) It enables sharing of code between processes
+d) It provides protection between processes
+e) None of the above (all are false)
+5. Assume the following for the original version of BeOS: a 64-byte virtual address space, a system with 512
+bytes of physical memory, a base register set to 10, and a bounds register set to 20. A process in BeOS
+wishes to access the following virtual memory addresses: 15, 6, 30, 21, 50. How many of these accesses are
+valid (legal) and thus will not trigger a fault?
+a) 1
+b) 2
+c) 3
+d) 4
+e) 5
+

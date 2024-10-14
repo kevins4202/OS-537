@@ -1,0 +1,332 @@
+PART I: We begin with BeOS (“Be OS”), a minimal operating system. Each design decision in
+BeOS is meant to simplify. Why? Binus, well, she liked keeping things simple and to the point.
+Very direct, that Binus!
+
+
+1. BeOS keeps track of a small amount of information about each running process in a data structure called the “process list”. However, to keep the amount of information in the process list small, Binus reduced the number of states a process could be in. Specifically, in BeOS, there are only two states a process can be in: RUNNING and BLOCKED. What process state found in most OSes was removed from BeOS?
+a) STOPPED
+b) READY
+c) ACTIVE
+d) WAITING
+e) LOCKED
+
+
+2. To keep scheduling simple in BeOS, Binus chose the FIFO policy (first in, first out) to decide which
+process to run. Which one of the following statements about FIFO scheduling is true?
+a) It reduces average turnaround time
+b) It reduces average response time
+c) It suﬀers from the “convoy” problem
+d) It is a preemptive scheduling policy
+e) It is diﬀerent from the FCFS policy
+
+
+3. Assuming the BeOS FIFO scheduling approach, calculate the turnaround time for job B, assuming the following: job A arrives at time T=0, and needs to perform 10 seconds of compute; job B arrives at time T=5, and needs to perform 20 seconds of compute; job C arrives at time T=10, and needs to perform 5 seconds of compute. The jobs perform no I/O.
+a) 10
+b) 20
+c) 30
+d) 25
+e) None of the above
+
+
+4. For simplicity, BeOS originally used a “base and bounds” approach to virtual memory. Which one of
+the following is true about this approach?
+a) It translates addresses more slowly than most other approaches
+b) It prevents internal fragmentation
+c) It enables sharing of code between processes
+d) It provides protection between processes
+e) None of the above (all are false)
+
+
+5. Assume the following for the original version of BeOS: a 64-byte virtual address space, a system with 512 bytes of physical memory, a base register set to 10, and a bounds register set to 20. A process in BeOS wishes to access the following virtual memory addresses: 15, 6, 30, 21, 50. How many of these accesses are valid (legal) and thus will not trigger a fault?
+a) 1
+b) 2
+c) 3
+d) 4
+e) 5
+
+
+6. A later version of BeOS was developed for a newer machine and had a much larger virtual address
+space: 1 KB. Assuming it is running on a system with 16 KB of physical memory, what is the largest
+virtual address a BeOS process can generate?
+a)1000
+b) 1023
+c) 1024
+d) It depends on the base register
+e) It depends on the bounds register
+
+
+7. With a base and bounds registers in the MMU, BeOS must take care during process switching. In an early version of BeOS, it was so simple that the bounds register was never updated upon a process switch, instead using the first value — essentially, a random value — that was placed there. What could happen as a result? (choose one answer)
+a) A process could access another process’s memory
+b) A process could fault even though it is accessing what should be valid memory
+c) A process could access physical memory that isn’t assigned to any process
+d) A process could be prevented from accessing valid code
+e) All of the above
+
+
+8. An earlier version of BeOS was so simple that it didn’t use the base and bounds registers provided in hardware. Instead, when a process was loaded into memory, each of its address references was statically rewritten to match its location in physical memory. For example, if the program contained the instruction “load 10 into register R1”, and the address space was loaded at physical address 100, the instruction would be rewritten to “load 110 into register R1”. This approach (choose one answer):
+a) Provides strong process isolation
+b) Makes programs run slowly
+c) Allows multiple processes to be active in the system
+d) Aﬀects the type of CPU scheduling policy you can implement
+e) Helps realize a sparse virtual address space
+
+
+PART II: We now move on to DOS, designed by Dinus. DOS is based around the concept of
+randomness, because to be honest, Dinus was a pretty random kind of dude. You never knew
+what Dinus was up to!
+9. The DOS scheduler is based on a random policy. Specifically, every 10 milliseconds (ms), a timer interrupt goes oﬀ, and DOS picks a random process to run. This approach is most similar to which following policy?
+a) First-in, First-out
+b) Shortest Job First
+c) Round Robin
+d) Shortest Time To Completion First
+e) Rank-order Scheduling
+
+
+10. With the DOS random scheduling policy, assume you have two jobs enter the system at the same time, each of which needs to run for 30 milliseconds. Assume again a 10 ms timer interrupt. What is the best case average response time for these two jobs?
+a) 0 ms
+b) 5 ms
+c) 10 ms
+d) 15 ms
+e) None of the above
+
+
+11. With the DOS random scheduling policy, assume you have two jobs enter the system at the same time, each of which needs to run for 30 milliseconds. Assume again a 10 ms timer interrupt. What is the worst case average turnaround time for these two jobs?
+a) 45 ms
+b) 50 ms
+c) 60 ms
+d) 120 ms
+e) None of the above
+
+
+12. DOS uses the MLFQ (multi-level feedback queue) scheduler. However, it changes some rules. The biggest change: new processes are added to a random queue (not the topmost one). What is the biggest eﬀect this will have? (choose one)
+a) Sometimes, short-running jobs won’t get serviced quickly, thus decreasing interactivity
+b) Over a long period of time, it will be unfair to long-running jobs
+c) Jobs will generally finish more quickly
+d) Jobs will be able to game the scheduler
+e) None of the above
+
+
+13. DOS uses paging. Before talking about how randomness was used, let’s do a simple questions to make sure we understand it. In this system, the virtual address space size was 128 bytes (tiny!), and the page size was just 2 bytes. How many entries were in each page table? (assume a linear array)
+a) 128
+b) 64
+c) 32
+d) 16
+e) None of the above
+
+
+14. Now assume the address space size is still 128 bytes, but the page size is 32 bytes. Here is the page table for a process, where the leftmost bit is the valid bit, and the rightmost 4 bits are the PFN.
+0x8000000c
+0x00000000
+0x00000000
+0x80000006
+If 4 bits are needed for the PFN, how big is physical memory?
+a) 128 bytes
+b) 256 bytes
+c) 512 bytes
+d) 1024 bytes
+e) None of the above
+
+
+15. Assume again that the address space size is 128 bytes, and the page size is 32 bytes. Using the page table above (Question 14), translate the virtual address 0x64.
+a) 0x46
+b) 0x04
+c) 0xc4
+d) 0x64
+e) None of the above
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16. When allocating a physical page to a process, DOS selects a random free physical page (instead of, for example, the first free one on a free list). This approach will:
+a) Make the page table larger
+b) Make physical memory more fragmented (externally)
+c) Slow down address translation
+d) Make heap allocation fail more often
+e) None of the above
+
+
+PART III: Next up is Minus, who created Minux. Minus, well, they really love system complexity,
+so Minux may indeed be the most complicated of the OSes. Let’s analyze what Minus has
+created!
+
+
+17. Minux uses kernel mode, user mode, and a new mode called “supervisor” mode. When a user
+program runs in “supervisor” mode, it is still restricted (like user mode), but can do the following: change
+the length of the timer interrupt interval, including turning it oﬀ. Overall, would you say that supervisor
+mode (choose one):
+a) Helps ensure streamlined round-robin scheduling
+b) Ensures more eﬃcient, application-aware timing interrupts
+c) Better integrates scheduling and virtual memory mechanisms
+d) Limits the OS’s ability to retain control of the machine if user code runs in supervisor mode
+e) None of the above
+
+
+18. Minux employs a (two-level) multi-level page table. Assume a 32-bit virtual address space, and 4 KB pages. Also assume each page table entry (PTE) is 4 bytes in size. How many PTEs fit onto one page?
+a) 1
+b) 32
+c) 1024
+d) 4096
+e) None of the above
+
+
+19. Assuming a two-level multi-level page table (32-bit virtual addresses, 4KB pages, 4-byte PTE size), what is the minimum number of valid virtual pages in an address space such that the multi-level page table becomes its maximum size?
+a) 512
+b) 1024
+c) 2048
+d) 4096
+e) None of the above
+
+
+20. Assuming a two-level multi-level page table (32-bit virtual addresses, 4KB pages, 4-byte PTE size), what is the minimum number of pages needed for the multi-level page table (including the page directory) when there are 1025 contiguous valid pages somewhere in the virtual address space?
+a) 3
+b) 4
+c) 5
+d) 1025
+e) None of the above
+
+
+
+
+21. TLBs make hardware more complex, so Minux definitely uses one. The best description of what a TLB is as follows (choose one):
+a) A memory to store page table entries
+b) A collection of base/bounds pairs to help segmentation work quickly
+c) An OS component to speed up translation
+d) A hardware feature that ensures fair use of memory
+e) An address-translation cache
+
+
+22. Assume the TLB, which has just four entries, has the following contents (numbers in the TLB are all decimal, and entries are all valid):
+VPN 0 -> PFN 1
+VPN 1 -> PFN 100
+VPN 2 -> PFN 101
+VPN 3 -> PFN 102
+Assume this system has a 14-bit virtual address, and 4-KB pages. What virtual address will access the
+physical address 50 (decimal)?
+a) 0x0032
+b) 0x1023
+c) 0x3012
+d) 0x3132
+e) None of the above
+
+
+23. When running on Minux, calculate the hit rate of the TLB assuming a process has 4-KB pages, and accesses every 128th byte on a series of pages. Assume the TLB begins empty, and ignore code accesses and just focus on this “strided” data access pattern.
+a) Just about 99%
+b) Just about 88%
+c) Just about 50%
+d) Just about 17%
+e) None of the above
+
+
+24. The Minux scheduler uses a new scheduler called “highest process ID (PID) first” (i.e., the job with the highest PID always runs, and to completion). Assume job PID=1 arrives at time T=0, with length 10; PID=2 arrives at T=2, length=6; PID=3 arrives at T=4, with length 4. What is the average response time of this approach in this example?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+PART IV: Finally, ZOS, created by Zinus, is the most novel of the OSes. Zinus is quite creative!
+Each part of ZOS has some new ideas; are they good ideas? We’ll see!
+25. To reduce the size of page tables, ZOS combines the idea of base/bounds and paging. A virtual address space is still chopped into pages. The page table is pointed to by the base register, and the bounds register holds the “size” of the page table (really, the max VPN that is valid, plus one). This approach (choose one):
+a Enables fast translation with only two extra memory references to fetch a PTE
+b Enables a compact page table, if you use the virtual address space carefully
+c Is always smaller than a linear page table
+d Supports a sparse address space while still also minimizing page table memory usage
+e None of the above
+
+
+26. ZOS, as mentioned above (Question 25), combines base/bounds and paging. Assume the following:
+a 32-bit address space with 1-KB pages. Assume each page table entry (PTE) is 4 bytes. Assume there are 100 processes in the system. If each process uses only one virtual page, what is the worst-case total size of all of these page tables?
+a) 16 MB
+b) 160 MB
+c) 1600 MB
+d) 16 GB
+e) None of the above
+
+
+27. ZOS uses a new type of scheduler called a proportional-share scheduler. This scheduler makes sure each process gets a certain amount of CPU time, based on how many “tickets” it has. For example, if process A has 2 tickets, and process B has 1, A should get twice as much CPU time as B. Note that a process cannot change how many tickets it has, and all jobs only use the CPU (there is no I/O in this example). Which of the following traces (which each show which job was scheduled at each quantum over time) does not show the behavior of a proportional-share scheduler?
+a) AABAABAABAABAA
+b) ABABABABABAB
+c) AAAAAAAAAABBBBB
+d) ABBBABBBABBBABBB
+e) None of the above (they all could be traces from a proportional share scheduler)
+
+
+28. ZOS uses a new mechanism instead of timer interrupts. Instead of interrupting the CPU every so many milliseconds, the ZOS hardware is programmed to interrupt the CPU after every N TLB misses. How creative! As compared to the timer, this approach (choose one):
+a) Is equally eﬀective
+b) Is faster to program
+c) Is risky
+d) Requires less memory
+e) Requires virtual memory support
+
+
+29. A later version of ZOS uses a diﬀerent, clever approach to sharing the TLB among active processes. Assume the hardware does not have an address space identifier (or process identifier) field in the TLB. Instead of flushing the TLB when switching between processes, ZOS ensures that each process in the system uses diﬀerent (unique) VPNs as compare to any other process. Which of the following is not true about this approach:
+a) Allows for fully flexible use of the virtual address space by each process
+b) Allows for faster context switching (as compared to the TLB flushing approach)
+c) Allows for fully flexible use of physical memory
+d) Allows sharing of code pages between processes
+e) None of the above (all are true)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+30. ZOS also later added support for “large” pages, a new and clever idea. Assume that in a given system, regular page size is usually 1 KB, and large pages are 1 MB. When possible, the OS uses large pages instead of a bunch of smaller ones (e.g., when there is a contiguous, aligned portion of the virtual address space in use). Why is using large pages a good idea?
+a) They reduce system complexity
+b) They speed up trap handling
+c) They can increase TLB hit rates
+d) They make physical memory allocation easier
+e) None of the above
+
+
+31. ZOS also added special hardware, in the form of general-purpose registers that only the kernel can use. Indeed, all kernel code has been written to only use these registers, not the regular (user-level) general purpose ones. Why might these registers for the kernel be a good idea?
+a) Faster trapping into and returning from the kernel
+b) Kernel code now easier to compile
+c) Reduces need for context switching between processes
+d) Now, no way to harm user-level register contents while in kernel code
+e) None of the above
+
+
+32. Zinus also had this last question for you: which is true about operating systems?
+a) They always make systems run faster
+b) They always make systems use less memory and CPU
+c) They generally make systems easier to use
+d) They never crash
+e) None of the above (these are all false)

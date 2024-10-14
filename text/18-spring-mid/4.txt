@@ -1,0 +1,57 @@
+Problem XIV: Segmentation is a generalization of base-and-bounds. Which possible advantages does seg- mentation have as compared to base-and-bounds?
+To answer: Fill in A for cases where the statement is true about segmentation and (as a result) segmentation has a clear advantage over base-and-bounds, B otherwise.
+
+66. Faster translation
+67. Less physical memory waste
+68. Better sharing of code in memory
+69. More hardware support needed to implement it 
+70. More OS issues to handle, such as compaction
+
+Problem XV: Assume the following in a simple segmentation system that supports two segments: one (positive growing) for code and a heap, and one (negative growing) for a stack:
+- Virtual address space size 128 bytes (small!)
+- Physical memory size 512 (small!)
+
+Segment register information:
+  Segment 0 base  (grows positive) : 0
+  Segment 0 limit                  : 20 (decimal)
+  Segment 1 base  (grows negative) : 0x200 (decimal 512)
+  Segment 1 limit                  : 20 (decimal)
+
+Which of the following are valid virtual memory accesses?
+To answer: Fill in A for valid virtual accesses, B for non-valid accesses.
+71. 0x1d (decimal: 29) 
+72. 0x7b (decimal: 123)
+ 73. 0x10 (decimal: 16) 
+74. 0x5a (decimal: 90) 
+75. 0x0a (decimal: 10)
+
+Problem XVI: In a simple page-based virtual memory, with a linear page table, assume the following:
+- virtual address space size is 128 bytes (small!)
+- physical memory size of 1024 bytes (small!)
+- page size of 16 bytes
+
+The format of the page table: The high-order (leftmost) bit is the VALID bit.
+  If the bit is 1, the rest of the entry is the PFN.
+  If the bit is 0, the page is not valid.
+
+Here are the contents of the page table (from entry 0 down to the max size)
+
+ [0]    0x80000034
+ [1]    0x00000000
+ [2]    0x00000000
+ [3]    0x00000000
+ [4]    0x8000001e
+ [5]    0x80000017
+ [6]    0x80000011
+ [7]    0x8000002e
+
+
+Which of the following virtual addresses are valid?
+To answer: Fill in A for valid virtual accesses, B for non-valid accesses.
+
+76. 0x34 (decimal: 52)  
+77. 0x44 (decimal: 68) 
+78. 0x57 (decimal: 87) 
+79. 0x18 (decimal: 24) 
+80. 0x46 (decimal: 70)
+

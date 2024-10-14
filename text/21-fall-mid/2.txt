@@ -1,0 +1,44 @@
+11. With the DOS random scheduling policy, assume you have two jobs enter the system at the same time,
+each of which needs to run for 30 milliseconds. Assume again a 10 ms timer interrupt. What is the worst case
+average turnaround time for these two jobs?
+a) 45 ms
+b) 50 ms
+c) 60 ms
+d) 120 ms
+e) None of the above
+12. DOS uses the MLFQ (multi-level feedback queue) scheduler. However, it changes some rules. The biggest
+change: new processes are added to a random queue (not the topmost one). What is the biggest eﬀect this will
+have? (choose one)
+a) Sometimes, short-running jobs won’t get serviced quickly, thus decreasing interactivity
+b) Over a long period of time, it will be unfair to long-running jobs
+c) Jobs will generally finish more quickly
+d) Jobs will be able to game the scheduler
+e) None of the above
+13. DOS uses paging. Before talking about how randomness was used, let’s do a simple questions to make
+sure we understand it. In this system, the virtual address space size was 128 bytes (tiny!), and the page size
+was just 2 bytes. How many entries were in each page table? (assume a linear array)
+a) 128
+b) 64
+c) 32
+d) 16
+e) None of the above
+14. Now assume the address space size is still 128 bytes, but the page size is 32 bytes. Here is the page table
+for a process, where the leftmost bit is the valid bit, and the rightmost 4 bits are the PFN.
+0x8000000c
+0x00000000
+0x00000000
+0x80000006
+If 4 bits are needed for the PFN, how big is physical memory?
+a) 128 bytes
+b) 256 bytes
+c) 512 bytes
+d) 1024 bytes
+e) None of the above
+15. Assume again that the address space size is 128 bytes, and the page size is 32 bytes. Using the page
+table above (Question 14), translate the virtual address 0x64.
+a) 0x46
+b) 0x04
+c) 0xc4
+d) 0x64
+e) None of the above
+

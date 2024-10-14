@@ -1,0 +1,53 @@
+Problem XXVIII: Here is the classic semaphore version of the producer/consumer problem:
+
+void *producer(void *arg) {  // core of producer
+  for (i = 0; i < num; i++) {
+
+   sem_wait(&empty);
+    sem_wait(&mutex);
+    put(i);
+    sem_post(&mutex);
+    sem_post(&full);
+
+} }
+void *consumer(void *arg) {  // core of consumer
+  while (!done) {
+   sem_wait(&full);
+    sem_wait(&mutex);
+    int tmp = get(i);
+    sem_post(&mutex);
+    sem_post(&empty);
+    // do something with tmp ...
+
+} }
+For the following statements about this working solution, which statements are true, and which are not? To answer: Fill in A if true, B for not true.
+
+136. The semaphore full must be initialized to 0 
+137. The semaphore full must be initialized to 1 
+138. The semaphore empty must be initialized to 1 
+139. The semaphore empty can be initialized to 1 
+140. The semaphore mutex must be initialized to 1
+
+Problem XXIX: One way to avoid deadlock is to schedule threads carefully. Assume the following charac- teristics of threads T1, T2, and T3:
+
+T1 (at some point) acquires and releases locks L1, L2
+T2 (at some point) acquires and releases locks L1, L3
+T3 (at some point) acquires and releases locks L3, L1, and L4
+
+For which schedules below is deadlock possible?
+To answer: Fill in A if deadlock is possible, B for not possible.
+
+141. T1 runs to completion, then T2 to completion, then T3 runs 
+142. T1 and T2 run concurrently to completion, then T3 runs
+143. T1, T2, and T3 run concurrently
+144. T3 runs to completion, then T1 and T2 run concurrently 
+145. T1 and T3 run concurrently to completion, then T2 runs
+
+Problem XXX: The multi-level page table is something that cannot be avoided. No matter what you do, there it is, bringing joy and horror to us all. In this last question, you’ll get your chance at a question about this foreboding structure. Fortunately, you don’t have to perform a translation. Instead, just answer these true/false questions about the multi-level page table.
+To answer: Fill in A if true, B for not true.
+
+146. A multi-level page table may use more pages than a linear page table
+147. It’s easier to allocate pages of the page table in a multi-level table (as compared to a linear page table) 
+148. Multi-level page table lookups take longer than linear page table lookups
+149. With larger virtual address spaces, usually more levels are used
+150. TLBs are useful in making multi-level page tables even smaller

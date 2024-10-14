@@ -1,0 +1,24 @@
+30. ZOS also later added support for “large” pages, a new and clever idea. Assume that in a given system,
+regular page size is usually 1 KB, and large pages are 1 MB. When possible, the OS uses large pages instead
+of a bunch of smaller ones (e.g., when there is a contiguous, aligned portion of the virtual address space in
+use). Why is using large pages a good idea?
+a) They reduce system complexity
+b) They speed up trap handling
+c) They can increase TLB hit rates
+d) They make physical memory allocation easier
+e) None of the above
+31. ZOS also added special hardware, in the form of general-purpose registers that only the kernel can use.
+Indeed, all kernel code has been written to only use these registers, not the regular (user-level) general
+purpose ones. Why might these registers for the kernel be a good idea?
+a) Faster trapping into and returning from the kernel
+b) Kernel code now easier to compile
+c) Reduces need for context switching between processes
+d) Now, no way to harm user-level register contents while in kernel code
+e) None of the above
+32. Zinus also had this last question for you: which is true about operating systems?
+a) They always make systems run faster
+b) They always make systems use less memory and CPU
+c) They generally make systems easier to use
+d) They never crash
+e) None of the above (these are all false)
+

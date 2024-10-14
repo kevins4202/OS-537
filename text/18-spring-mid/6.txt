@@ -1,0 +1,46 @@
+Problem XXI: Here is a ticket lock:
+typedef struct __lock_t {
+    int ticket, turn;
+
+} lock_t;
+void lock_init(lock_t *lock) {
+
+   lock->ticket = 0;
+
+lock->turn =0; }
+void lock(lock_t *lock) {
+    int myturn = FetchAndAdd(&lock->ticket);
+    while (lock->turn != myturn)
+
+; // spin
+}
+void unlock(lock_t *lock) {
+
+   lock->turn = lock->turn + 1;
+}
+
+Assuming a maximum of 5 threads in the system, and further assuming the ticket lock is used “properly” (i.e., threads acquire and release it as expected), what values of lock->ticket and lock->turn are possible? (at the same time) To answer: Fill in A for possible, B for not possible.
+
+101. ticket=0 and turn=0
+102. ticket=0 and turn=1
+103. ticket=1 and turn=0
+104. ticket=16 and turn=5
+105. ticket=1000 and turn=999
+
+Problem XXII: Assume the following list insertion code, which inserts into a list pointed to by shared global variable head:
+int List_Insert(int key) {
+  node_t *n = malloc(sizeof(node_t));
+  if (n == NULL) { return -1; }
+  n->key = key;
+  n->next = head;
+  head = n;
+  return 0;
+}
+
+This code is executed by each of three threads exactly once, without adding any synchronization primitives (such as locks). Assuming malloc() is thread-safe (i.e., can be called without worries of data races) and that malloc() returns successfully, how long might the list be when these three threads are finished executing? (assume the list was empty to begin)
+To answer: Fill in A for possible, B for not possible.
+106. 0
+107. 1
+108. 2
+109. 3
+110. 4

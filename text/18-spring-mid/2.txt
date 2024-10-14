@@ -1,0 +1,59 @@
+Problem VI: Assuming fork() might fail (by returning an error code and not creating a new process) and printf() prints its outputs immediately (no buffering occurs), what are possible outputs of the same program as above?
+To answer: Fill in A for possible, B for not possible.
+
+26. ab 
+27. abb 
+28. bab 
+29. bba 
+30. a
+
+Problem VII: Here is even more code to look at. Assume the program /bin/true, when it runs, never prints anything and just returns 0 in all cases.
+int main(int argc, char *argv[]) {
+  int rc = fork();
+  if (rc == 0) {
+
+   char *my_argv[] = { "/bin/true", NULL };
+    execv(my_argv[0], my_argv);
+    printf("1");
+
+ } else if (rc > 0) {
+    wait(NULL);
+    printf("2");
+
+ } else {
+    printf("3");
+}
+return 0; }
+Assuming all system calls succeed and printf() prints its outputs immediately (no buffering occurs), what outputs are possible?
+To answer: Fill in A for possible, B for not possible.
+
+31. 123 
+32. 12 
+33. 2 
+34. 23 
+35. 3
+
+Problem VIII: Assume the program /bin/true, when it runs, never prints anything and just returns 0 in all cases.
+int main(int argc, char *argv[]) {
+  int rc = fork();
+  if (rc == 0) {
+
+   char *my_argv[] = { "/bin/true", NULL };
+    execv(my_argv[0], my_argv);
+    printf("1");
+ } else if (rc > 0) {
+    wait(NULL);
+    printf("2");
+
+ } else {
+    printf("3");
+}
+return 0; }
+Assuming any of the system calls above might fail (by not doing what is expected, and returning an error code), what outputs are possible? Again assume that printf() prints its outputs immediately (no buffering occurs).
+To answer: Fill in A for possible, B for not possible.
+
+36. 123 
+37. 12 
+38. 2 
+39. 23
+40. 3

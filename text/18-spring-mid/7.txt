@@ -1,0 +1,55 @@
+Problem XXIII: Assume the following code, in which a “background malloc” allocates memory in a thread and initializes it:
+void *background_malloc(void *arg) {
+  int **int_ptr = (int *) arg;
+  *int_ptr = calloc(1, sizeof(int)); // allocates space for 1 int
+  **int_ptr = 10;
+
+ return NULL;
+}
+
+// calloc: also zeroes memory
+
+int main(int argc, char *argv[]) {
+  pthread_t p1;
+  int *result = NULL;
+  pthread_create(&p1, NULL, background_malloc, &result);
+  printf("%d\n", *result);
+
+return 0; }
+The code unfortunately is buggy. What are the possible outcomes of this code? Assume the calls to
+pthread create() and calloc() succeed, and that a NULL pointer dereference crashes reliably. To answer: Fill in A if possible, B for not possible.
+
+111. The code prints out 0
+112. The code prints out 10
+113. The code prints out 100
+114. The code crashes
+115. The code hangs forever
+
+Problem XXIV: Here is some more multi-threaded code:
+void *printer(void *arg) {
+  char *p = (char *) arg;
+  printf("%c", *p);
+  return NULL;
+
+}
+int main(int argc, char *argv[]) {
+  pthread_t p[5];
+  for (int i = 0; i < 5; i++) {
+
+   char *c = malloc(sizeof(char));
+    *c = ’a’ + i; // hint: ’a’ + 1 = ’b’, etc.
+    pthread_create(&p[i], NULL, printer, (void *) c);
+
+ }
+  for (int i = 0; i < 5; i++)
+
+   pthread_join(p[i], NULL);
+  return 0;
+}
+
+Assuming calls to all library routines succeed, which of the following outputs are possible? To answer: Fill in A if possible, B for not possible.
+116. abcde
+117. edcba 
+118. cccde 
+119. eeeee 
+120. aaaaa

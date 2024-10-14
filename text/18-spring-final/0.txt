@@ -1,0 +1,57 @@
+Question 1: For a specific RAID array (call it “RAID A”), a read of a block takes about 10ms. A write of a block also takes about 10ms. This RAID is likely: 
+a) RAID-1 (mirroring) 
+b) RAID-4 (parity disk) 
+c) RAID-5 (rotating parity) 
+d) RAID-4 or RAID-5 
+e) All of the above
+
+Question 2: for “RAID B”, two small random writes usually take about twice as long as one random write. This RAID is likely: 
+a) RAID-1 (mirroring) 
+b) RAID-4 (parity disk) 
+c) RAID-5 (rotating parity) 
+d) RAID-4 or RAID-5 
+e) All of the above
+
+Question 3: for “RAID C”, a large write (of 7 blocks) usually takes about as much time as a small write (1 block). This RAID is likely: 
+a) RAID-1 (mirroring) 
+b) RAID-4 (parity disk) 
+c) RAID-5 (rotating parity)
+d) RAID-4 or RAID-5 
+e) All of the above
+
+
+Question 4: For “RAID D”, the overall throughput (measured in MB/s) is about 4 MB/s when issuing many 1- block random writes. In comparison, a comparable RAID array configured to use striping (RAID-0) achieved a throughout of about 8 MB/s. This RAID (RAID D) is likely: 
+a) RAID-1 (mirroring) 
+b) RAID-4 (parity disk) 
+c) RAID-5 (rotating parity)  d) RAID-4 or RAID-5 
+e) All of the above
+ 
+Question 5: for “RAID E”, the overall throughput when writing large sequential blocks to disk is about 700 MB/ s. In comparison, large sequential writes to a RAID 0 achieves about 800 MB/s. This RAID (RAID-E) is likely:  a) RAID-1 (mirroring) 
+b) RAID-4 (parity disk) 
+c) RAID-5 (rotating parity) 
+d) RAID-4 or RAID-5 
+e) All of the above
+   
+For the next part of the RAID question, you discover a new forensic tool: the ability to measure the number of physical I/Os that happen in the system (you do this by attaching probes to the internal I/O busses of the RAID array in question; nice work!).
+
+
+Question 6: For “RAID F”, you know that the RAID is likely RAID-4 or RAID-5. You issue a single perfectly aligned block write. The number of physical I/Os you measure on RAID F during this write is: 
+a) 0 
+b) 1 
+c) 2  
+d) 3
+  e) 4
+ 
+Question 7: For “RAID G”, you have already figured out that it is likely a RAID-1 (mirroring). You then issue a single write to the RAID. The write is small (1 block) is aligned. The number of physical I/Os you measure on the disks of RAID G is always: 
+a) 0 
+b) 1 
+c) 2 
+d) Sometimes =2, sometimes >2 
+e) Always > 2
+
+Question 8: For “RAID H”, you have already figured out that it is likely a RAID-1 (mirroring). You then issue a single write to the RAID. The write is small (1 block); however, it is not necessarily aligned. The number of physical I/Os you measure on the disks of RAID H is always: 
+a) 0 
+b) 1 
+c) 2 
+d) Sometimes =2, sometimes >2  
+e) Always > 2

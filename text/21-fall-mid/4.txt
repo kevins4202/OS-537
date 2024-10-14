@@ -1,0 +1,48 @@
+21. TLBs make hardware more complex, so Minux definitely uses one. The best description of what a TLB is
+as follows (choose one):
+a) A memory to store page table entries
+b) A collection of base/bounds pairs to help segmentation work quickly
+c) An OS component to speed up translation
+d) A hardware feature that ensures fair use of memory
+e) An address-translation cache
+22. Assume the TLB, which has just four entries, has the following contents (numbers in the TLB are all
+decimal, and entries are all valid):
+VPN 0 -> PFN 1
+VPN 1 -> PFN 100
+VPN 2 -> PFN 101
+VPN 3 -> PFN 102
+Assume this system has a 14-bit virtual address, and 4-KB pages. What virtual address will access the
+physical address 50 (decimal)?
+a) 0x0032
+b) 0x1023
+c) 0x3012
+d) 0x3132
+e) None of the above
+23. When running on Minux, calculate the hit rate of the TLB assuming a process has 4-KB pages, and
+accesses every 128th byte on a series of pages. Assume the TLB begins empty, and ignore code accesses
+and just focus on this “strided” data access pattern.
+a) Just about 99%
+b) Just about 88%
+c) Just about 50%
+d) Just about 17%
+e) None of the above
+24. The Minux scheduler uses a new scheduler called “highest process ID (PID) first” (i.e., the job with the
+highest PID always runs, and to completion). Assume job PID=1 arrives at time T=0, with length 10; PID=2
+arrives at T=2, length=6; PID=3 arrives at T=4, with length 4. What is the average response time of this
+approach in this example?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+PART IV: Finally, ZOS, created by Zinus, is the most novel of the OSes. Zinus is quite creative!
+Each part of ZOS has some new ideas; are they good ideas? We’ll see!
+25. To reduce the size of page tables, ZOS combines the idea of base/bounds and paging. A virtual address
+space is still chopped into pages. The page table is pointed to by the base register, and the bounds register
+holds the “size” of the page table (really, the max VPN that is valid, plus one). This approach (choose one):
+a Enables fast translation with only two extra memory references to fetch a PTE
+b Enables a compact page table, if you use the virtual address space carefully
+c Is always smaller than a linear page table
+d Supports a sparse address space while still also minimizing page table memory usage
+e None of the above
+

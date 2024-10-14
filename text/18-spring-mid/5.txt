@@ -1,0 +1,56 @@
+Problem XVII: TLBs are a critical part of modern paging systems. Assume the following system:
+- page size is 64 bytes
+- TLB contains 4 entries
+- TLB replacement policy is LRU (least recently used)
+
+Each of the following represents a virtual memory address trace, i.e., a set of virtual memory addresses referenced by a program. In which of the following traces will the TLB possibly help speed up execution? To answer: Fill in A for cases where the TLB will speed up the program, B for the cases where it won’t.
+
+81. 0, 100, 200, 1, 101, 201, ... (repeats in this pattern)
+82. 0, 100, 200, 300, 0, 100, 200, 300, ... (repeats)
+83. 0, 1000, 2000, 3000, 4000, 0, 1000, 2000, 3000, 4000, ... (repeats) 
+84. 0,1,2,3,4,5,6,0,1,2,3,4,5,6,... (repeats)
+85. 300, 200, 100, 0, 300, 200, 100, 0, ... (repeats)
+
+Problem XVIII: Which of the following statements are true statements about various page-replacement policies?
+To answer: Fill in A for true statements, B for false ones.
+
+86. The LRU policy always outperforms the FIFO policy.
+87. The OPT (optimal) policy always performs at least as well as LRU.
+88. A bigger cache’s hit percentage is always greater than or equal to a smaller cache’s hit percentage, if they are using the same replacement policy.
+89. A bigger cache’s hit percentage is always greater than or equal to a smaller cache’s hit percentage, if
+they are using the LRU replacement policy.
+90. Random replacement is always worse than LRU replacement.
+
+Problem XIX: Assume a memory that can hold 4 pages, and an LRU replacement policy. The first four references to memory are to pages 6, 7, 7, 9.
+Assuming the next five accesses are to pages 7, 9, 0, 4, 9, which of those will hit in memory? (and which will miss?)
+To answer: Fill in A for cache hits, B for misses.
+
+91. 7
+92. 9
+93. 0
+94. 4
+95. 9
+
+Problem XX: Assume this attempted implementation of a lock:
+void init(lock_t *mutex) {
+  mutex->flag = 0;  // 0 -> lock is available, 1 -> held
+
+}
+void lock(lock_t *mutex) {
+
+ while (mutex->flag == 1) // L1
+    ;                      // L2
+  mutex->flag = 1;         // L3
+
+}
+void unlock(lock_t *mutex) {
+
+ mutex->flag = 0;         // L4
+}
+
+Assume 5 threads are competing for this lock. How many threads can possibly acquire the lock? To answer: Fill in A for possible, B for not possible.
+96. 1 
+97. 2 
+98. 3 
+99. 4
+100. 5

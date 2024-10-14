@@ -1,0 +1,59 @@
+Problem IX: Assume, for the following jobs, a FIFO scheduler and only one CPU. Each job has a “required” runtime, which means the job needs that many time units on the CPU to complete.
+Job A arrives at time=0, required runtime=X time units
+Job B arrives at time=5, required runtime=Y time units
+Job C arrives at time=10, required runtime=Z time units
+
+Assuming an average turnaround time between 10 and 20 time units (inclusive), which of the following run times for A, B, and C are possible?
+To answer: Fill in A for possible, B for not possible.
+
+41. A=10, B=10, C=10 
+42. A=20, B=20, C=20 
+43. A=5, B=10, C=15 
+44. A=20, B=30, C=40 
+45. A=30, B=1, C=1
+
+Problem X: Assume the following schedule for a set of three jobs, A, B, and C:
+A runs first (for 10 time units) but is not yet done
+B runs next (for 10 time units) but is not yet done
+C runs next (for 10 time units) and runs to completion
+A runs to completion (for 10 time units)
+B runs to completion (for 5 time units)
+
+Which scheduling disciplines could allow this schedule to occur? To answer: Fill in A for possible, B for not possible.
+46. FIFO
+47. Round Robin
+48. STCF (Shortest Time to Completion First) 
+49. Multi-level Feedback Queue
+50. Lottery Scheduling
+
+Problem XI: The Multi-level Feedback Queue (MLFQ) is a fancy scheduler that does lots of things. Which of the following things could you possibly say (correctly!) about the MLFQ approach?
+To answer: Fill in A for things that are true about MLFQ, B for things that are not true about MLFQ.
+
+51. MLFQ learns things about running jobs
+52. MLFQ starves long running jobs
+53. MLFQ uses different length time slices for jobs
+54. MLFQ uses round robin
+55. MLFQ forgets what it has learned about running jobs sometimes
+
+Problem XII: The simplest technique for virtualizing memory is known as dynamic relocation, or “base- and-bounds”. Assuming the following system characteristics:
+- a 1KB virtual address space
+- a base register set to 10000
+- a bounds register set to 100
+
+Which of the following physical memory locations can be legally accessed by the running program?
+To answer: Fill in A for legally accessible locations, B for locations not legally accessible by this program.
+
+56. 0 
+57. 1000
+58. 10000
+59. 10050
+60. 10100
+
+Problem XIII: Assuming the same set-up as above (1 KB virtual address space, base=10000, bounds=100), which of the following virtual addresses can be legally accessed by the running program? (i.e., which are valid?)
+To answer: Fill in A for valid virtual addresses, B for not valid ones.
+
+61. 0 
+62. 1000 
+63. 10000 
+64. 10050
+65. 10100

@@ -1,0 +1,54 @@
+Problem III: A concurrent program (with multiple threads) looks like this:
+
+volatile int counter = 1000;
+void *worker(void *arg) {
+  counter--;
+  return NULL;
+
+}
+int main(int argc, char *argv[]) {
+  pthread_t p1, p2;
+  pthread_create(&p1, NULL, worker, NULL);
+  pthread_create(&p2, NULL, worker, NULL);
+  pthread_join(p1, NULL);
+
+ pthread_join(p2, NULL);
+  printf("%d\n", counter);
+  return 0;
+
+}
+Assuming pthread create() and pthread join() all work as expected (i.e., they don’t return an error), which outputs are possible?
+To answer: Fill in A for possible, B for not possible.
+
+11. 0 
+12. 1000 
+13. 999 
+14. 998 
+15. 1002
+
+Problem IV: Processes exist in a number of different states. We’ve focused upon a few (Running, Ready, and Blocked) but real systems have slightly more. For example, xv6 also has an Embryo state (used when the process is being created), and a Zombie state (used when the process has exited but its parent hasn’t yet called wait() on it).
+
+Assuming you start observing the states of a given process at some point in time (not necessarily from its creation, but perhaps including that), which process states could you possibly observe?
+Note: once you start observing the process, you will see ALL states it is in, until you stop sampling. To answer: Fill in A for possible, B for not possible.
+
+16. Running, Running, Running, Ready, Running, Running, Running, Ready
+17. Embryo, Ready, Ready, Ready, Ready, Ready
+18. Running, Running, Blocked, Blocked, Blocked, Running
+19. Running, Running, Blocked, Blocked, Blocked, Ready, Running
+20. Embryo, Running, Blocked, Running, Zombie, Running
+
+Problem V: The following code is shown to you:
+int main(int argc, char *argv[]) {
+  printf("a");
+  fork();
+  printf("b");
+
+return 0; }
+Assuming fork() succeeds and printf() prints its outputs immediately (no buffering occurs), what are possible outputs of this program?
+To answer: Fill in A for possible, B for not possible.
+
+21. ab
+22. abb 
+23. bab 
+24. bba 
+25. a

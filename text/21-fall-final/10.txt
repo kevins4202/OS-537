@@ -1,0 +1,43 @@
+55. “During a file open, many ________ requests will likely be made to the server.”
+(a) NFSPROC_RMDIR
+(b) NFSPROC_MKDIR
+(c) NFSPROC_LOOKUP
+(d) NFSPROC_REMOVE
+(e) NFSPROC_FLUSH
+56. “An operation is called idempotent when the effect of performing the operation ______ is
+equivalent to the effect of performing the operation a single time.”
+(a) never
+(b) once
+(c) silently
+(d) many times
+(e) in reverse
+57. “NFS clients handle network packet losses and server crashes uniformly by using a
+_______ approach.”
+(a) caching
+(b) oddly efficient
+(c) redundancy-based
+(d) timeout/retry
+(e) handshake/fistbump
+58. “NFS clients use caches to improve performance. However, keeping caches consistent is a
+great challenge. Two primary subproblems of cache consistency are _______.”
+(a) latency/staleness
+(b) visibility/correctness
+(c) choiceness/visibility
+(d) correctness/staleness
+(e) staleness/visibility
+59. “NFS clients buffer writes in memory for some time before flushing them to the server.
+However, if a client closes a file, all dirty blocks in the client cache are flushed to the server.
+This ‘flush on close’ behavior addresses the _______ problem.”
+(a) latency
+(b) staleness
+(c) correctness
+(d) visibility
+(e) choiceness
+60. “NFS servers also have a cache, but must flush writes to disk immediately before returning
+success to clients. The reason for this is ________.”
+(a) performance; this approach is usually faster
+(b) correctness; this ensures no writes are lost due to an untimely server crash
+(c) choiceness; having more choice is critical in the modern world
+(d) caching in both clients and servers adds too much complexity to the protocol
+(e) lost to history
+
