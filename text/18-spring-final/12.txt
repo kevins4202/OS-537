@@ -1,0 +1,40 @@
+Question 76: You are now given some new information about a particular system. Specifically, this system has 1 MB linear page table size (per process), and has a 1KB page size. Assuming page table entry size is 4 bytes, how many bits are in the virtual page number (VPN) on this system?
+a) 28
+b) 18
+c) 8
+d) 32
+e) None of the above
+
+
+Lastly, you are given some memory dumps, which tell you something about the contents of memory. In this dump, you find that the system only has 3 pages, that pages 3, 4, and 5 are in memory. You also check a history log and find that the last 10 pages accessed were 8, 7, 4, 2, 5, 4, 7, 3, 4, 5 (in that order, with 5 being most recently accessed). 
+
+Question 77: You are then asked to determine which replacement policy was used. Is it: 
+a) FIFO
+b) LRU
+c) MRU
+d) LFU
+e) Cannot tell from the given information
+
+With the same situation as above (3-page system, with 3, 4, 5 in memory, and the last 10 pages accessed are 8, 7, 4, 2, 5, 4, 7, 3, 4, 5), you are asked the following few questions.
+
+Question 78: Assuming the replacement policy was FIFO, how many misses were encountered while those last 10 pages were accessed? (assume the memory was empty to begin)
+a) 7
+b) 8
+c) 9
+d) 10
+e) None of the above
+
+Question 79: Assuming the replacement policy was LRU, how many misses were encountered while those last 10 pages were accessed? (assume the memory was empty to begin)
+a) 7
+b) 8
+c) 9
+d) 10
+e) None of the above
+
+Question 80: Assuming the replacement policy was OPT (the optimal replacement policy), how many misses were encountered while those last 10 pages were accessed? (assume the memory was empty to begin)
+a) 7
+b) 8
+c) 9
+d) 10
+e) None of the above
+

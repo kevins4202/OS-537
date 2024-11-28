@@ -12,11 +12,13 @@ import pandas as pd
 exam_info = pd.read_csv("exams.csv")
 # print((exam_info.loc[exam_info['exam'] == '18-spring-mid', 'total_points'].values[0]))
 exams = ["18-spring-mid", "21-fall-mid", "18-spring-final", "21-fall-final"]
-df = pd.read_csv("gemini_text.csv")
+
 # For all files in the images folder, upload all of them to the API and generate content, joined into a single list
-for exam in exams[1:4]:
+for exam in exams[2:]:
     print(exam)
     print(exam_info.loc[exam_info['exam'] == exam, 'total_points'].values[0])
+
+    df = pd.DataFrame()
     i = 0
     while i < 5:
         model = genai.GenerativeModel('gemini-1.5-pro')
@@ -62,17 +64,16 @@ for exam in exams[1:4]:
 
                     answers.extend(text)
                     k+=1
-            except:
-                pass
+            except Exception as e:
+                print(e)
         print(answers)
         print(len(answers))
-        num_questions = int(exam_info.loc[exam_info['exam'] == '18-spring-mid', 'total_points'].values[0])
+        num_questions = int(exam_info.loc[exam_info['exam'] == exam, 'total_points'].values[0])
         if num_questions == len(answers):
             df[f'{exam}{i}'] = answers
             i+=1
             print(df)
-            df.to_csv(f'gemini_text.csv', index=False)
+            df.to_csv(f'results/gemini_text_{exam}.csv', index=False)
             
-    #     df[f'gemini{i}'] = answers
 
 

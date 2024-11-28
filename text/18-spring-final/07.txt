@@ -1,0 +1,56 @@
+Question 48: Finally, a process deletes a 1-byte file from the root directory (leaving the root directory empty). Assuming the root directory only uses a single data block for its data, how many blocks are written to the journal as part of this file creation?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+
+
+Question 49: Which of the following statements is NOT true about journaling file systems?
+a) Journaling adds a new on-disk structure to the file system
+b) Journaling is the same as write-ahead logging (the terms are used interchangeably)
+c) Journaling generally increases the amount of write traffic to the disk
+d) Journaling always makes performance worse (than the same file system without journaling)
+e) Whether in data or ordered journaling modes, file system metadata is always first written to the journal before being updated in place.
+
+Question 50: Which of the following best represents a final, complete, and most optimized version of the ordered (metadata only) journaling protocol?
+a) Data write, then journal metadata write, then journal commit.
+b) Data write, then journal metadata write, then journal commit, then checkpoint of metadata.
+c) Data write, then journal metadata write, then journal commit, then checkpoint of metadata, then (later) mark the transaction free in the journal superblock.
+d) Data write and journal metadata write (concurrently), then journal commit, then checkpoint of metadata, then (later) mark the transaction free in the journal superblock.
+e) None of the above
+
+
+You discover a disk filled with what seems to be a log-structured file system. In its initial state on disk, the first few blocks seem to be filled with an empty file system:
+
+[0] checkpoint: 3 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+[1] [.,0] [..,0] -- -- -- -- -- --
+[2] type:dir size:1 refs:2 ptrs: 1 -- -- -- -- -- -- --
+[3] chunk(imap): 2 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+As you examine these first few blocks, you realize their structure. The first block (Block 0) is the “checkpoint region” - it points to pieces of the inode map. Block 3 holds that first chunk of the inode map; in this case, you figure out that only inode 0 is live, and it lives in Block 2. Block 2 holds the inode of the root directory, which contains 1 block, which is located in Block 1 (the first ptr in the list of addresses held in the inode). Finally, the contents of the root directory are in Block 1: a . and .. entry, each referring to the root inode 0. Good job!
+
+Now, for some questions. You perform a single file system operation, with the resulting on-disk state:
+[0] checkpoint: 7 -- -- -- -- -- -- 8 -- -- -- -- -- -- -- -- 
+[1] [.,0] [..,0] -- -- -- -- -- --
+[2] type:dir size:1 refs:2 ptrs: 1 -- -- -- -- -- -- --
+[3] chunk(imap): 2 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+[4] [.,0] [..,0] [ku3,122] -- -- -- -- --
+[5] type:dir size:1 refs:2 ptrs: 4 -- -- -- -- -- -- --
+[6] type:reg size:0 refs:1 ptrs: -- -- -- -- -- -- -- --
+[7] chunk(imap): 5 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+[8] chunk(imap): -- -- -- -- -- -- -- -- -- -- 6 -- -- -- -- –
+
+Question 51: What file operation was performed?
+a) mkdir(“ku3”);
+b) creat(“ku3”);
+c) rmdir(“/“);
+d) link(“.”, “ku3”);
+e) None of the above
+
+Question 52: In the above file system state, which of the blocks are live? 
+a) 0 through 8
+b) 4 through 8
+c) 0 through 3
+d) 0 and 4 through 8 
+e) None

@@ -1,0 +1,62 @@
+Question 69: Assume the same system as in Question 68, but now with block mappings (not page). Assume each block fits 4 pages. Assuming each entry is still 4 bytes, how large is this block-mapped FTL?
+a) 1 KB
+b) 4 KB
+c) 1 MB
+d) 4 MB
+e) None of the above
+
+
+And now, a final, general question for you about SSDs. 
+
+Question 70: Which of the following is NOT true about flash-based SSDs?
+a) SSDs need less memory to perform logical to physical translation than hard drives 
+b) SSDs are generally faster than hard drives for write-oriented workloads
+c) SSDs are generally more expensive than hard drives (cost per byte)
+d) SSDs are generally faster than hard drives for read-oriented workloads
+e) SSDs use fewer moving parts than hard drives
+
+
+You are given a system with 64 bytes of physical memory, 4 byte pages, and 16-byte virtual address spaces. Your forensics tools dig up the following page table structure (high bit: Valid/NOT, rest is the PFN):
+[0] 0x00000000
+[1] 0x800000?? <- missing! 
+[2] 0x00000000
+[3] 0x00000000
+
+Question 71: A trace you have accesses virtual address 0x7, which translates to 0x33. What two hex digits are missing from page table entry 1 above?
+a) 0x0a
+b) 0x0b
+c) 0x0c
+d) 0x0d
+e) None of the above
+
+Assuming the same system (4 byte pages, 16 byte virtual address space), and the following page table:
+[0] 0x00000000 [1] 0x80000005 [2] 0x8000000a [3] 0x00000000
+Question 72: Given the virtual address 4, which decimal physical address does it translate to? 
+a) 5
+b) 10
+c) 20
+d) 54
+e) 45
+
+Assuming the following page table (on the same system, again):
+[0] 0x00000000 [1] 0x8000000e [2] 0x00000000 [3] 0x80000009
+Question 73: Which ranges of virtual address are valid? a) 
+0 ... 64
+b) 0 ... 16
+c) 4 ... 7 and 12 ... 15
+d) 0 ... 3 and 8 ... 11
+e) 80 ... 89
+
+Question 74: You are told a given system has a 30-bit virtual address, with a 4KB page size. Assuming a 4-byte page table entry size, how big is a linear page table for a given process?
+a) 1 MB
+b) 2 MB
+c) 4 MB
+d) 8 MB
+e) None of the above
+
+Question 75: You are next given system has a 10-bit virtual address. with a 256 byte page size. Assuming a 4-byte page table entry size, how big is a linear page table for a given process?
+a) 16 bytes
+b) 16 KB
+c) 16 MB
+d) 16 GB
+e) None of the above

@@ -1,0 +1,48 @@
+18. “A single write (to a RAID-4) requires _____ read(s) and then ______ write(s) to the
+underlying disks.” [assuming subtractive parity]
+(a) 2, 1
+(b) 1, 2
+(c) 2, 2
+(d) 1, 1
+(e) None of the above
+
+
+
+19. “Assuming that each disk, under a random write workload, delivers R MB/s, a RAID-5
+system with N disks will deliver ______ MB/s under a random write workload.”
+(a) N x R MB/s
+(b) N x R / 2 MB/s
+(c) N x R / 4 MB/s
+(d) R / 2 MB/s
+(e) R MB/s
+
+20. “To conclude, if you strictly want performance and do not care about reliability, ______ is
+obviously best.”
+(a) rebooting
+(b) a parity-based approach
+(c) mirroring
+(d) thinking
+(e) striping
+
+21. “A Flash bank is organized into a large number of ______, each of which is further sub-
+divided into pages.”
+(a) mega pages
+(b) blocks
+(c) units
+(d) chunks
+(e) candy bars
+ 
+22. “A typical size of a Flash page is ____.”
+(a) 4 KB
+(b) 256 KB
+(c) 256 MB
+(d) 256 GB
+(e) over 1 TB
+
+23. “Once a Flash page is programmed, it _____.”
+(a) can be re-programmed repeatedly (without intervening steps)
+(b) is guaranteed to store bits within it, permanently
+(c) can never be re-programmed
+(d) can be re-programmed, but first must be read
+(e) cannot be re-programmed until the entire block is erased
+

@@ -1,0 +1,56 @@
+Question 63: Assume a page-mapped FTL. The user issues a read which returns “ffff”. Which of the following could NOT accurately represent the contents of the entire FTL?
+a) 1000:1, 1001:3, 1002:5, 1003:7 
+b) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0
+c) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2
+d) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2, 1006:4
+e) None of the above
+
+
+Question 64: Assume a page-mapped FTL. The user issues a read which returns “aaaa”. Which of the following could NOT accurately represent the contents of the entire FTL?
+a) 1000:1, 1001:3, 1002:5, 1003:7 
+b) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0
+c) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2
+d) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2, 1006:4
+e) None of the above
+
+
+Assume the same flash contents, now showing Blocks 0, 1, and part of Block 2: [0] aaaa
+[1] bbbb
+[2] cccc
+[3] dddd
+[4] eeee
+[5] ffff
+[6] gggg
+[7] hhhh
+[8] erased (not yet programmed) [9] erased (not yet programmed) [10] etc.
+For the next questions, assume the following page-mapped FTL is the initial state of the system: 10:0, 11:1, 12:2, 13:3, 14:4, 15:5, 16:6, 17:7
+
+Question 65: Assume the user then issues a write to the SSD(address=14, data=iiii). What will the contents of flash physical page 4 be just after this write takes place?
+a) dddd
+b) eeee
+c) ffff
+d) iiii
+e) None of the above
+
+Question 66: Assuming Block 2 (pages 8...11) of the flash is used for the write above to address=14, which of the following could represent the contents of the FTL after the write completes?
+a) 10:0, 11:1, 12:2, 13:3, 14:4, 15:5, 16:6, 17:7
+b) 10:0, 11:1, 12:2, 13:3, 14:2, 15:5, 16:6, 17:7
+c) 10:0, 11:1, 12:2, 13:3, 14:8, 15:5, 16:6, 17:7 
+d) 10:0, 11:1, 12:2, 13:3, 15:5, 16:6, 17:7
+e) None of the above
+
+Question 67: After the write (to address=14, data=iiii) is complete, the SSD decides to perform garbage collection (GC). Which of the following will NOT happen as part of the GC?
+a) Block 0 is erased
+b) Block 1 is erased
+c) Data from pages 5, 6, 7 are copied elsewhere
+d) The contents of the FTL (the mappings) will change
+e) Block 2 is erased
+
+Question 68: Assume you have a page-mapped FTL. If each entry in the FTL takes 4 bytes (assuming it is an array), how large is the FTL? Assume the SSD is only 1 MB in size, and uses 1 KB pages.
+a) 1 KB
+b) 4 KB
+c) 1 MB
+d) 4 MB
+e) None of the above
+
+

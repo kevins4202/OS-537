@@ -1,0 +1,50 @@
+1. “The drive consists of a large number of sectors (512-byte blocks), each of which can be
+read or ______.”
+(a) deleted
+(b) written
+(c) read from
+(d) erased
+(e) truncated
+
+2. “We start with a _____, a circular hard surface on which data is stored persistently by
+inducing magnetic changes to it.”
+(a) platter
+(b) surface
+(c) track
+(d) sector
+(e) block
+
+3. “Data is encoded on each surface in concentric circles of sectors; we call one such
+concentric circle a ______.”
+(a) platter
+(b) surface
+(c) track
+(d) sector
+(e) block
+
+4. “Another reality is that outer tracks tend to have more sectors than inner tracks, which is a
+result of geometry; there is simply more room out there. These disks are often referred to as
+______ disk drives, …”
+(a) wicked smart
+(b) extended
+(c) regular
+(d) multi-zoned
+(e) shingled
+
+
+
+
+
+
+
+For questions 5, the graph is a disk with three rings: The outermost ring contains 0 to 11 inclusive. The next inner ring contains 12 to 23, inclusive. The third ring contains 24 to 35, inclusive. 
+
+5. In the next four (5-8) questions, the Word Thief has hacked the disk simulator! What a clever
+hacker, this Word Thief is. What’s missing? Well, unsurprisingly, it’s the solutions!
+Assuming FIFO disk scheduling, what request would be serviced last, assuming the requests
+are: 13, 4, 35, 34, 5
+(a) 13
+(b) 4
+(c) 35
+(d) 34
+(e) 5

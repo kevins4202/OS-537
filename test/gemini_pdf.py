@@ -2,11 +2,11 @@ import google.generativeai as genai
 import os
 import PIL.Image
 
-genai.configure(api_key=os.environ['key_gemini'])
+genai.configure(api_key=os.environ['GEMINI_API_KEY'])
 
 model = genai.GenerativeModel('gemini-1.5-pro')
 
-context = "You are an undergraduate Operating Systems student who is going to be taking an exam. Answer the questions on each page. You are only to answer with the lowercase letter representing the correct answer. Do not include any other information, code, or explanation in your response. For example, if the answer to question 1 is A, you should only respond with 'a'. If the answer to question 2 is B, you should only respond with 'b'. If the answer to question 3 is C, you should only respond with 'c'. If the answer to question 4 is D, you should only respond with 'd'. If the answer to question 5 is E, you should only respond with 'e'."
+context = "You are an undergraduate Operating Systems student who is going to be taking an exam. Think carefully about the number of questions on each page. You are only to answer with the lowercase letter representing the correct answer. Do not include any question numbers, code, or explanation in your response. For example, if the answer to question 1 is A, you should only respond with 'a'. Think about each question before answering. There are 150 questions total."
 
 import pandas as pd
 
@@ -22,7 +22,7 @@ for exam in exams[0:1]:
         file = genai.upload_file(path=f'exam_pdfs/{exam}.pdf',
                                 display_name="Gemini 1.5 PDF")
         
-        response = model.generate_content([file, context])
+        response = model.generate_content([context, file])
         text = response.candidates[0].content.parts[0].text.strip()
         answers = text.split("\n")
         print(answers)

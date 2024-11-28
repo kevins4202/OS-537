@@ -1,0 +1,55 @@
+
+
+Question 30: To atomically replace the contents of a file foo, we should use the following sequence of system calls: open() [to open a new temporary file], write() to write data to the disk, force the contents to disk (with a certain file system call, as in question 29), and finally:
+a) close() to close the file
+b) rename() to change the name of the temporary file to the desired file name
+c) link() to link the file to another name
+d) unlink() to remove the original file foo
+e) None of the above
+
+In this bit of forensics, only bits and pieces remain on disk of a file system that looks very similar to the Very Simple File System (VSFS). VSFS, as you may recall, has an inode bitmap, some inodes, a data bitmap, and some data blocks. Here is a sample VSFS empty file system disk image:
+
+Inode bitmap 10000000
+Inodes [d a:0 r:2] [] [] [] [] [] [] []
+data bitmap 10000000
+data [(.,0) (..,0)] [] [] [] [] [] [] []
+
+As you can see, only the (empty) root directory is allocated in this tiny file system. In the inode of the root directory, you see the following contents: [d a:0 r:2]. This shows that the inode is of type “directory” (d,  or f it is a regular file), it points to one data block (a:0, where a is for address; 0 means data block 0), and its reference count is 2 (r:2). After this, you perform certain operations on the empty root file system, but the contents are sometimes lost. Your job is to reconstruct the contents of the VSFS image.
+
+Question 31: Assume you call mkdir(“/n”) on the empty root file system. The inode bitmap is missing; what should it look like:
+inode bitmap ????????
+inodes [d a:0 r:3] [d a:1 r:2] [] [] [] [] [] []
+data bitmap 11000000
+data [(.,0) (..,0) (n,1)] [(.,1) (..,0)] [] [] [] [] [] []
+
+a) 10000000
+b) 11000000
+c) 11100000
+d) 10100000
+e) None of the above
+
+Question 32: Assume you had instead called creat(“/z”) on an empty file system. Unfortunately, in this case, the data block for the root directory has gone bad. What should be in there?
+
+inode bitmap 11000000
+Inodes [d a:0 r:2] [f a:- r:1] [] [] [] [] [] []
+data bitmap 10000000
+data [CORRUPT!] [] [] [] [] [] [] []
+
+a) [(.,0) (..,0)]
+b) [(.,0) (..,0) (z,1)] 
+c) [(.,0) (..,0) (z,2)] 
+d) [(.,0) (..,0) (/z,1)]
+e) [(.,0) (..,0) (/z,2)]
+
+This file system represents the on-disk state after two operations: 
+inode bitmap 11100000
+inodes [d a:0 r:4] [d a:1 r:2] [d a:2 r:2] [] [] [] [] []
+data bitmap 11100000
+data [(.,0) (..,0) (d,1) (w,2)] [????] [(.,2) (..,0)] [] [] [] [] []
+
+Question 33: What are the contents of the missing data block (Block 1)? 
+a) (.,0) (..,0)
+b) (.,1) (..,0)
+c) (.,2) (..,0)
+d) foofoofoo
+e) None of the above

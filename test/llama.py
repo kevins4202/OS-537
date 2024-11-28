@@ -1,40 +1,121 @@
-from llamaapi import LlamaAPI
-import os
 import json
+import os
+import re
+from openai import OpenAI
+from llamaapi import LlamaAPI
 
-client = LlamaAPI(os.environ['llama_api'])
-context = "You are an undergraduate Operating Systems student who is going to be taking an exam. Answer the questions on each page. You are only to answer with the lowercase letter representing the correct answer. Do not include any other information, code, or explanation in your response. For example, if the answer to question 1 is A, you should only respond with 'a'. If the answer to question 2 is B, you should only respond with 'b'. If the answer to question 3 is C, you should only respond with 'c'. If the answer to question 4 is D, you should only respond with 'd'. If the answer to question 5 is E, you should only respond with 'e'."
+context = "You are an undergraduate Operating Systems student who is going to be taking an exam. Think carefully about the number of questions on each page."
 
 import pandas as pd
 
+exam_info = pd.read_csv("exams.csv")
+# print((exam_info.loc[exam_info['exam'] == '18-spring-mid', 'total_points'].values[0]))
 exams = ["18-spring-mid", "21-fall-mid", "18-spring-final", "21-fall-final"]
 
-for exam in exams[:1]:  
-    df = pd.read_csv(f'{exam}.csv')
+def getChars(text):
+    j = 0
+    while True:
+        if j >= len(text):
+            break
+        text[j] = text[j].strip()
 
-    for i in range(1):
+        pattern = r"\b\d{1,3}\.\s\(?([A-Za-z])\)?\s*"
+
+        match = re.search(pattern, text[j])
+        if match:
+            text[j] = match.group(1)
+        elif len(text[j]) != 1 or not text[j][-1].isalpha():
+            text.pop(j)
+            continue
+
+        text[j] = text[j][-1].lower()
+        if text[j] not in 'abcde':
+            text.pop(j)
+            continue
+        j += 1
+    return text
+
+# For all files in the images folder, upload all of them to the API and generate content, joined into a single list
+for exam in exams[:]:
+    print(exam)
+    print(exam_info.loc[exam_info["exam"] == exam, "total_points"].values[0])
+
+    if os.path.exists(f"results/llama3.1_text_{exam}.csv"):
+        df = pd.read_csv(f"results/llama3.1_text_{exam}.csv")
+    else:
+        df = pd.DataFrame()
+    i = 2
+    while i < 5:
         answers = []
-        for file in os.listdir("text/" + exam):
-            with open(f'text/{exam}/{file}', 'r') as file:
-                datum = file.read()
-                api_request_json = {
-                    "messages": [
-                        {"role": "user", "content": context + "\n\n" + datum},
-                    ],
-                }
-                print(datum)
+        lst = sorted(os.listdir("text/" + exam))
+        k = 0
+        while k < len(lst):
+            try:
+                file = lst[k]
+                print(file)
 
-                data = client.run(api_request_json).json()
-                # print(type(data))
-                splitted = data['choices'][0]['message']['content'].strip().split("\n")
-                print(splitted)
-                for i in range(len(splitted)):
-                    if len(splitted[i]) == 0:
-                        splitted.pop(i)
-                        i -= 1
-                    if len(splitted[i]) > 1:
-                        splitted[i] = splitted[i][-1]
-                answers += splitted
-                print(f'add length {len(splitted)}')
-                print(answers)
-                print(len(answers))
+                model = LlamaAPI(os.environ["LLAMA_API_KEY"])
+
+                with open(f"text/{exam}/{file}", "r") as file:
+                    data = file.read()
+
+                    api_request_json = {
+                        # "model": "llama3.2-3b",
+                        "model": "llama3.1-70b",
+                        "messages": [
+                            {
+                                "role": "user",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "You are an undergraduate Operating Systems student who is going to be taking an exam. Answer the questions on each page. Do not include any other information, code, or explanation in your response. You are only to answer with the lowercase letter representing the correct answer.",
+                                    }
+                                ],
+                            },
+                            {"role": "user", "content": data},
+                        ],
+                        "functions": [
+                            {
+                                "name": "take_exam",
+                                "description": "take the exam",
+                                "parameters": {
+                                    "type": "object",
+                                    "properties": {
+                                        "exam_questions": {
+                                            "type": "string",
+                                            "description": "The exam questions",
+                                        },
+                                    },
+                                },
+                            }
+                        ],
+                        "stream": False,
+                        "function_call": "take_exam",
+                    }
+                    response = model.run(api_request_json).json()
+
+                    print(response)
+
+                    text = response['choices'][0]['message']['content']
+
+                    text = text.strip().split("\n")
+                    print(text)
+
+                    text = getChars(text)
+
+                    print(len(text), text)
+
+                    answers.extend(text)
+                    k += 1
+            except Exception as e:
+                print(e)
+        print(answers)
+        print(len(answers))
+        num_questions = int(
+            exam_info.loc[exam_info["exam"] == exam, "total_points"].values[0]
+        )
+        if num_questions == len(answers):
+            df[f"{exam}{i}"] = answers
+            i += 1
+            print(df)
+            df.to_csv(f"results/llama3.1_text_{exam}.csv", index=False)

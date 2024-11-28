@@ -1,0 +1,40 @@
+34. “In VSFS (as in many file systems), directories have a simple organization; a directory
+basically just contains a list of (______, ______) pairs.”
+(a) directory name, file attribute
+(b) file name, inode number
+(c) file name, parent location
+(d) inode number, file type
+(e) inode type, file directory
+
+35. “… free space management is important for all file systems. In VSFS, we have two simple
+______ for this task.”
+(a) free lists
+(b) management teams
+(c) hamburgers
+(d) bitmaps
+(e) inodes
+
+36. “In this example, let us first assume that you want to simply open a file /foo/bar, read it,
+and then close it. In doing so, the file system will read ______ inodes.”
+(a) 0
+(b) 1
+(c) 2
+(d) 3
+(e) 4
+
+37. “Once /foo/bar is opened, assume a process appends a data block to it three times. The
+following blocks will be written to during each append: ______, ______, and ______. [assume
+no buffering of writes]
+(a) the file’s inode, data bitmap, and the data block itself
+(b) the directory data block, the data block, and the superblock
+(c) the inode bitmap, the directory data block, and the inode
+(d) the journal, the data block itself, and the directory
+(e) the department, the chair, the entire university
+
+38. "Write buffering (as it is sometimes called) has a number of performance benefits. They are
+______, ______, and ______.
+(a) skipping, tricking, and faking out
+(b) batching, scheduling, and avoiding writes altogether
+(c) batching, scheduling, and smoothing writes out
+(d) batching, avoiding writes, and spacing writes out over time
+(e) anticipating, logging, and batch amortizing

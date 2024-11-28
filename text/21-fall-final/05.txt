@@ -1,0 +1,51 @@
+28. After the five writes above took place, assume the FTL has the following contents:
+12->4 14->3 29->2 37->0 39->1
+What data value will be returned if the user issues a read to block 29?
+(a) q
+(b) i
+(c) U
+(d) K
+(e) z
+
+29. After the first five writes (as shown above), assume the next five writes are to blocks 12, 20,
+30, 39, and 50. After these writes, how many pages in the SSD will be live?
+(a) 7
+(b) 8
+(c) 9
+(d) 10
+(e) 11
+
+30. Assuming the same times (erase of a block takes 1000 microseconds, program of a page
+takes 40 microseconds), what is the average cost per write for the first 10 writes?
+(a) 100 microseconds
+(b) 120 microseconds
+(c) 140 microseconds
+(d) 200 microseconds
+(e) 1040 microseconds
+
+31. “The ______ is the generic name that is used in many file systems to describe the structure
+that holds the metadata for a given file, such as its length, permissions, and the location of its
+constituent blocks.”
+(a) superblock
+(b) inode
+(c) data block
+(d) directory
+(e) journal
+
+32. “Thus, an inode has a fixed number of direct pointers (12), and a single indirect pointer. If a
+file grows large enough, an indirect block is allocated (from the data-block region of the disk),
+and the inode’s slot for an indirect pointer is set to point to it. Assuming each slot can point to
+a 4-KB block, and that disk addresses are 4 bytes, the file can grow to be ______.
+(a) 4096 KB
+(b) 4100 KB
+(c) 4104 KB
+(d) 4044 KB
+(e) 4144 KB
+33. “Let’s examine an example with twelve direct pointers, as well as both a single and a
+double indirect block. Assuming a block size of 4 KB, and 4-byte disk addresses, such a file
+system can have a max file size of ______ (approximately).”
+(a) ~4 KB
+(b) ~1 MB
+(c) ~4 MB
+(d) ~1 GB
+(e) ~4 GB

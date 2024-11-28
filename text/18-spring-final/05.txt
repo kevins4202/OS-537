@@ -1,0 +1,57 @@
+Question 34: Which two operations were run upon the empty file system to result in this state? 
+a) creat(“/d”); creat(“/w”);
+b) creat(“/d”); link(“/d”, “/w”);
+c) creat(“/w”); unlink(“/d”);
+d) mkdir(“/d”); mkdir(“/w”);
+e) None of the above
+
+
+Let’s examine one particular corrupt file system image from VSFS for the next two questions:
+inode bitmap 11000000
+inodes [d a:0 r:2] [f a:1 r:2] [] [] [] [] [] []
+data bitmap ????????
+data [(.,0) (..,0) (c,1) (m,1)] [foofoofoo] [] [] [] [] [] []
+
+
+Question 35: Which ONE of the following is not true about the above file system state? 
+a) There is a proper root directory
+b) The file “/c” exists
+c) The file “/m” exists
+d) If you read the first block of “/c”, you get “foofoofoo”
+e) If you unlink “/c”, you can no longer read “foofoofoo” 
+
+Question 36: Which ONE of the following is true about the above file system state? a) File “/m” is a hard link to “/c”
+b) File “/c” is a hard link to “/m”
+c) Both “/c” and “/m” are links to the same file
+d) The root directory has many data blocks in it
+e) The file “/m” has many data blocks in it
+
+inode bitmap 11111100
+Inodes [d a:0 r:3] [f a:1 r:1] [f a:2 r:1] [d a:3 r:2] [f a:- r:1]  [f a:4 r:1] [] []
+data bitmap11111000
+data [(.,0) (..,0) (d,1) (g,2) (y,3) (j,5)] [d] [v] [(.,3) (..,0) (n,4)] [/u] [] [] []
+
+Question 37: In this final file system state, which regular files exist? 
+a) Only /d, /g, /j
+b) Only /d, /g, /j, /n
+c) Only /d, /g, /j, /y/n
+d) Only /d, /g, /j, /y e) None of the above
+
+Question 38: In the above file system format, what is the largest number of regular-file inodes that can be allocated?
+a) 1 
+b) 6
+c) 7
+d) 8
+e) As many as needed
+
+Question 39: Bitmaps are useful as allocation structures because of all the reasons below EXCEPT: 
+a) They are compact
+b) They are human readable
+c) They allow for quick lookup of free space
+d) They allow for lookup to readily find consecutive free blocks e) Updates to them do not add any disk traffic
+
+Question 40: VSFS has all the following features EXCEPT: 
+a) Regular files
+b) Directories
+c) Hard links
+d) Simple allocation structures e) Fast crash consistency

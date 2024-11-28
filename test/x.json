@@ -1,0 +1,23 @@
+{
+  "created": 1732120913,
+  "model": "llama3.1-70b",
+  "usage": {
+    "prompt_tokens": 658,
+    "completion_tokens": 60,
+    "total_tokens": 718
+  },
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "1. A\n2. A\n3. A\n4. A\n5. A\n6. A\n7. B\n8. B\n9. A\n10. A",
+        "refusal": null,
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ]
+}

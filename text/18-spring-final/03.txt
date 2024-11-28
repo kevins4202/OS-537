@@ -1,0 +1,60 @@
+Question 22: Adding the O_TRUNC flag to the open() call will a) puts the data in a locked “trunk” file
+b) causes the open call to fail (usually)
+c) implies you must add O_TRUNC to close() as well
+d) creates the file (if it doesn’t exist) 
+e) truncates the file to size=0
+
+Question 23: The “unlink()” system call is to the program “rm” as THIS is to the “rmdir” program 
+a) unlink()
+b) delete()
+c) rmdir()
+d) link() 
+e) fork()
+
+Question 24: The “lseek()” call is used to 
+a) reposition the disk head
+b) do a long disk seek, immediately
+c) change the current file offset
+d) force changes to disk
+e) close files after a layoff period
+
+Question 25: The following information is NOT available within a typical inode:  
+a) owner
+b) size (bytes)
+c) blocks allocated
+d) file name
+e) last access time
+
+
+Question 26: The “read()” call is to the “cat” program as the BLANK call is to the “ls” program: 
+a) read()
+b) readdir()
+c) stat()
+d) fstat()
+e) umount()
+
+
+Question 27: Which type of links do most UNIX file systems support? 
+a) hyperlinks
+b) soft links
+c) forked links
+d) sausage links 
+e) unlinks
+
+
+Question 28: A file is NOT
+a) a container for data
+b) a byte array that can be read or written
+c) something with a low-level name
+d) easily deleted
+e) something that can be referred to via a high-level name, thanks to directories
+
+
+Question 29: Let’s say we wish to write data to a file and then force the contents of a file to disk. We should thus call:
+a) write()
+b) write() then fsync()
+c) write() then fopen() 
+d) write() then falloc() 
+e) write() then fit()
+
+

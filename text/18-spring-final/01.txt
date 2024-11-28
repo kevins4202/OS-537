@@ -1,0 +1,54 @@
+Question 9: For “RAID I”, you already know that it is RAID-5 (rotating parity). You then issue a single small read (1 block), which is never aligned. The number of physical I/Os you measure on the disks of RAID I is always: 
+a) 0
+b) 1
+c) 2
+d) Sometimes =2, sometimes >2
+e) Always > 2
+
+Question 10: For “RAID J”, you measure the total number of physical I/Os under a read-only workload. You find that it is equal to the number of logical reads issued to the RAID. You also see that one disk is never accessed. From this, you conclude that the RAID is: 
+a) RAID-0 (striping) 
+b) RAID-1 (mirroring)
+c) RAID-4 (parity disk)
+d) RAID-0 or RAID-1
+e) RAID-0 or RAID-1 or RAID-4
+
+A new type of disk has come to market. It is called a “shingled disk”, and has the following properties. First, tracks are grouped into groups called “shingles”. Within each shingle, tracks are packed very tightly, such that when you write to a block on track K, you will likely overwrite (oops) the corresponding block on track K+1. Thus, tracks within a shingle should be written in order, from 0 to T-1 (assuming T tracks in each shingle); 
+if you stick to writing tracks in order within a shingle, you won’t lose any data.
+The reason for shingles: it allows disk manufacturers to pack even more data on disk, making disks cheaper.
+The problem: you can’t easily overwrite a block in place; rather, the device needs to keep a mapping table of some kind (the Shingle Translation Layer, or STL), and write blocks out (within each shingle) in log- structured fashion.
+
+Question 11: Assume the STL maps each 4KB block to a location on the disk. How big must the STL be to hold translations for an entire 512-GB disk? Assume a 4-byte disk address for each entry in an array-like structure in the STL.
+a) 1 MB
+b) 128 MB
+c) 512 MB
+d) 1 GB
+e) None of the above
+
+
+Question 12: The STL size can be changed by mapping chunks in sizes other than the usual 4KB block. With each doubling of the block size, the STL:
+a) Increases in size by 2x
+b) Decreases in size by 2x
+c) Increases in size by 4x
+d) Decreases in size by 4x
+e) None of the above
+
+
+Question 13: In a shingled disk, all writes are log-structured. As a result, which of the following is NOT true:  a) Write performance is similar to a regular hard drive for sequential workloads
+b) Write performance is similar to a regular hard drive for random workloads
+c) Read performance is similar to a regular hard drive for sequential workloads
+d) Read performance is similar to a regular hard drive for random workloads
+ e) All of the above are true
+
+
+Question 14: The STL size can be changed by mapping chunks in sizes other than the usual 4KB block. With each doubling of the block size, the STL:
+a) Increases in size by 2x
+b) Decreases in size by 2x
+c) Increases in size by 4x
+d) Decreases in size by 4x
+e) None of the above
+
+Question 15: In a shingled disk, all writes are log-structured. As a result, which one of the these is NOT true:  a) Performance is similar to a regular hard drive for sequential write workloads
+b) Performance is similar to a regular hard drive for random write workloads
+c) Performance is similar to a regular hard drive for sequential read workloads
+d) Performance is similar to a regular hard drive for random read workloads
+e) Performance is similar to a regular hard drive for workloads with a mix of sequential reads/writes

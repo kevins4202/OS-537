@@ -1,0 +1,55 @@
+You are now given some tasks about a journaling file system. The first task is to figure out what blocks would end up in a journal transaction, given some base knowledge of the system. We assume for these first questions that the system under inspection uses data journaling mode, in which all blocks (metadata and data) are first journaled before being updated in place. Assume the standard structures of a file system here: an inode bitmap, a data bitmap, a table of inodes, and data blocks.
+Important: For the questions below, ignore any additional journal metadata that would be written (i.e., a transaction start and end block), and assume no reads to disk need to take place to complete the given action (i.e., relevant structures are cached in memory).
+
+Question 41: Assume that a process appends a data block to an existing (small) file. How many blocks are written to the journal as part of this update?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+
+Question 42: Now assume that a process reads a block from a file. Reading, in this file system, updates the “last accessed time” field in the inode. How many blocks are written to the journal as part of this read?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+
+Question 43: Now a process creates a 0-byte file in the root directory (which does not have many entries in it, so there is room for another entry in an existing directory data block). How many blocks are written to the journal as part of this file creation?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+
+Question 44: Finally, a process deletes a 1-byte file from the root directory (leaving the root directory empty). Assuming the root directory only uses a single data block for its data, how many blocks are written to the journal as part of this file creation?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+
+
+For the next questions, we will now assume ordered mode journaling, which only writes metadata to the journal (user file data is written only once as a result). We otherwise make the same assumptions as above, and answer the same questions about ordered mode journaling.
+
+Question 45: Assume that a process has appends a data block to an existing (small) file. How many blocks are written to the journal as
+part of this update?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+
+Question 46: Now assume that a process reads a block from a file. Reading, in this file system, updates the “last accessed time” field in the inode. How many blocks are written to the journal as part of this read?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above
+
+Question 47: Now a process creates a 0-byte file in the root directory (which does not have many entries in it, so there is room for another entry in an existing directory data block). How many blocks are written to the journal as part of this file creation?
+a) 1
+b) 2
+c) 3
+d) 4
+e) None of the above

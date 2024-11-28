@@ -1,53 +1,99 @@
 import time
 from openai import OpenAI
-from openai.types.beta.threads.message_create_params import (
-    Attachment,
-    AttachmentToolFileSearch,
-)
 import os
+import pandas as pd
+import re
 
-filename = os.getcwd()+"/exam_pdfs/18-spring-mid.pdf"
-prompt = "You are an undergraduate Operating Systems student who is going to be taking an exam. Answer the questions on each page. You are only to answer with the lowercase letter representing the correct answer. Do not include any other information, code, or explanation in your response. For example, if the answer to question 1 is A, you should only respond with 'a'. If the answer to question 2 is B, you should only respond with 'b'. If the answer to question 3 is C, you should only respond with 'c'. If the answer to question 4 is D, you should only respond with 'd'. If the answer to question 5 is E, you should only respond with 'e'."
-client = OpenAI()
+context = "You are an undergraduate Operating Systems student who is going to be taking an exam. Think carefully about the number of questions on each page."
+exam_info = pd.read_csv("exams.csv")
+exams = ["18-spring-mid", "21-fall-mid", "18-spring-final", "21-fall-final"]
 
-pdf_assistant = client.beta.assistants.create(
-    model="gpt-4o",
-    description="An assistant to take OS exams.",
-    tools=[{"type": "file_search"}],
-    name="OS537",
-)
+class AnswerList:
+    answers: list[chr]
 
-# Create thread
-thread = client.beta.threads.create()
+models = ["gpt-4o", "o1-preview"]
+for m in models[:1]:
+    for exam in exams[2:]:
+        print(exam)
+        print(exam_info.loc[exam_info['exam'] == exam, 'total_points'].values[0])
 
-file = client.files.create(file=open(filename, "rb"), purpose="assistants")
+        df = pd.DataFrame()
+        i = 0
+        while i < 5:
 
-# Create assistant
-message = client.beta.threads.messages.create(
-    thread_id=thread.id,
-    role="user",
-    attachments=[
-        Attachment(
-            file_id=file.id, tools=[AttachmentToolFileSearch(type="file_search")]
-        )
-    ],
-    content=prompt,
-)
+            answers = []
+            lst = sorted(os.listdir("text/" + exam))
+            k = 0
+            while k < len(lst):
+                try:
+                    file = lst[k]
+                    print("file name", file)
+                    with open(f'text/{exam}/{file}', 'r') as file:
+                        model  = OpenAI()
+                        data = file.read()
 
-response = None
-while not response:
-    time.sleep(2)  # Wait for a couple of seconds before checking again
-    # Fetch the latest messages in the thread
-    messages = client.beta.threads.messages.list(thread_id=thread.id)
-    
-    # Look for a message from the assistant
-    for msg in messages:
-        if msg.role == "assistant":
-            response = msg
-            break
+                        completion = model.chat.completions.create(
+                            model=m,
+                            messages=[
+                                {
+                                "role": "system", 
+                                "content": [
+                                        {
+                                            "type": "text",
+                                            "text": "You are an undergraduate Operating Systems student who is going to be taking an exam. Answer the questions on each page. Do not include any other information, code, or explanation in your response. You are only to answer with the lowercase letter representing the correct answer."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "role": "user",
+                                    "content": data
+                                }
+                            ]
+                        ) 
+                        
+                        text = completion.choices[0].message.content.strip()
+                        if "\n" in text:
+                            text = text.split("\n")
+                        else:
+                            if " " in text:
+                                text = text.replace(" ", "")
+                            text = [text]
+                        print("text", text)
+                        
+                        j = 0
+                        
+                        while True:
+                            if j >= len(text):
+                                break
+                            text[j] = text[j].strip()
 
-# Print the assistant's response content
-if response:
-    print(response['content'])
-else:
-    print("No response from the assistant yet.")
+                            pattern = r"\b\d{1,3}[.:]\s\(?([A-Za-z])\)?\s*"
+
+                            match = re.search(pattern, text[j])
+                            if match:
+                                text[j] = match.group(1)
+                            elif len(text[j]) != 1 or not text[j][-1].isalpha():
+                                text.pop(j)
+                                continue
+
+                            text[j] = text[j][-1].lower()
+                            if text[j] not in 'abcde':
+                                text.pop(j)
+                                continue
+                            j += 1
+
+                        print(len(text), text)
+
+                        answers.extend(text)
+                        k+=1
+                        time.sleep(1)
+                except Exception as e:
+                    print(e)
+            print(answers)
+            print(len(answers))
+            num_questions = int(exam_info.loc[exam_info['exam'] == exam, 'total_points'].values[0])
+            if num_questions == len(answers):
+                df[f'{exam}{i}'] = answers
+                i+=1
+                print(df)
+                df.to_csv(f'results/{m}_text_{exam}.csv', index=False)
