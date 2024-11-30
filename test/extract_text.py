@@ -1,4 +1,5 @@
 import pymupdf
+import fitz
 import os
 
 def pdf_to_text(pdf_path, output_folder):
@@ -13,5 +14,5 @@ def pdf_to_text(pdf_path, output_folder):
         
         out.close()
 
-for exam in ["18-spring-mid.pdf", "21-fall-mid.pdf", "18-spring-final.pdf", "21-fall-final.pdf"]:
-    pdf_to_text("exam_pdfs/" + exam, "text/" + exam[:-4])
+for exam in ["18-spring-mid.pdf", "21-fall-mid.pdf", "18-spring-final.pdf", "21-fall-final.pdf"][:1]:
+    pdf_to_text("exam_pdfs/" + exam, "test_text/" + exam[:-4])
