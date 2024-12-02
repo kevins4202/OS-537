@@ -3,9 +3,8 @@ import os
 import re
 import pandas as pd
 import anthropic
-import openai as OpenAI
-import llamaapi as LlamaAPI
-
+from openai import OpenAI
+from llamaapi import LlamaAPI
 
 def getChars(text):
     j = 0
@@ -60,35 +59,42 @@ class LLM:
         }
         self.exam_info = pd.read_csv("exams.csv")
 
-    def call_model(self, exams_path, model_type, model_names, iterations):
-        # use the correct syntax for each type of model (claude, gemini, llama, openai)
-        for exam in os.listdir(exams_path):
+    def call_model(self, exams_path, model_type, exams, model_names, iterations):
+        for exam in exams:
             for model_name in model_names:
+                print("model", model_name)
                 df = pd.DataFrame()
                 if os.path.exists(f"results/{model_name}_text_{exam}.csv"):
-                    df = pd.read_csv(f"results/{model_type}_text_{exam}.csv")
+                    df = pd.read_csv(f"results/{model_name}_text_{exam}.csv")
 
                 iteration = 0
                 while iteration < iterations:
                     answers = []
                     lst = sorted(os.listdir(exams_path + "/" + exam))
                     file_index = 0
+                    
+                    print(lst)
+                    
                     while file_index < len(lst):
                         try:
                             file = lst[file_index]
-                            print(file)
+                            
+                            if file == ".DS_Store":
+                                file_index += 1
+                                continue
 
                             with open(f"{exams_path}/{exam}/{file}", "r") as file:
                                 data = file.read()
                                 text = None
 
-                                message = "\n" + data + "\nFor each question, answer in the format 'QUESTION_NUMER DOT SPACE ANSWER_CHOICE'. Do not provide any explanation and answer with a single letter for each question. Carefully think about the number of questions on each page.",
-                                
+                                message = "\n" + data + "\nFor each question, answer in the format 'QUESTION_NUMER DOT SPACE ANSWER_CHOICE'. Do not provide any explanation and answer with a single letter for each question. Carefully think about the number of questions on each page."
+
                                 model = None
                                 if model_type == "claude":
                                     model = anthropic.Anthropic(api_key=os.environ["CLAUDE_API_KEY"])
 
                                     response = model.messages.create(
+                                        max_tokens=1024,
                                         model=model_name,
                                         messages=[
                                             {
@@ -97,6 +103,8 @@ class LLM:
                                             }
                                         ],
                                     )
+
+                                    
                                     text = response.content[0].text.strip().split("\n")
                                 elif model_type == "gemini":
                                     model = genai.GenerativeModel(model_name)
@@ -109,9 +117,10 @@ class LLM:
                                     )
                                     response = response.send_message(message)
 
+                                    text = response.text.strip().split("\n")
                                 elif model_type == "llama":
                                     model = LlamaAPI(os.environ["LLAMA_API_KEY"])
-                                    
+
                                     api_request_json = {
                                         "model": model_name,
                                         "messages": [
@@ -143,8 +152,9 @@ class LLM:
                                         "stream": False,
                                         "function_call": "take_exam",
                                     }
+
                                     response = model.run(api_request_json).json()
-                                    text = response.content[0].text.strip().split("\n")
+                                    text = text = response['choices'][0]['message']['content'].strip().split("\n")
                                 elif model_type == "openai":
                                     model = OpenAI()
                                     completion = model.chat.completions.create(
@@ -152,17 +162,19 @@ class LLM:
                                         messages=[
                                             {
                                                 "role": "user",
-                                                "content": self.content + message
+                                                "content": self.context + message
                                             }
                                         ]
                                     )
-                                    text = completion.choices[0].message.content.strip()
+                                    text = completion.choices[0].message.content.strip().split("\n")
                                 else:
                                     raise ValueError("Invalid model type")
                                 
                                 print(text)
                                 text = getChars(text)
                                 print("parsed\n", len(text), text)
+                                if len(text) == 0:
+                                    continue
                                 answers.extend(text)
                                 file_index += 1
                         except Exception as e:
@@ -176,3 +188,10 @@ class LLM:
                         iteration += 1
                         print(df)
                         df.to_csv(f"results/{model_name}_text_{exam}.csv", index=False)
+
+def main():
+    llm = LLM()
+    llm.call_model("text", "claude", ["18-spring-mid", "21-fall-mid", "18-spring-final", "21-fall-final"], llm.models["claude"], 5)
+
+if __name__ == "__main__":
+    main()
