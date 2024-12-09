@@ -5,6 +5,7 @@ import pandas as pd
 import anthropic
 from openai import OpenAI
 from llamaapi import LlamaAPI
+import numpy as np
 
 def getChars(text):
     j = 0
@@ -13,7 +14,7 @@ def getChars(text):
             break
         text[j] = text[j].strip()
 
-        pattern = r"\b\d{1,3}\.\s\(?([A-Za-z])\)?"
+        pattern = r"\b\d{1,3}\.\s?\(?([A-Za-z])\)?"
 
         match = re.search(pattern, text[j])
         if match:
@@ -23,7 +24,7 @@ def getChars(text):
             continue
 
         text[j] = text[j][-1].lower()
-        if text[j] not in "abcde":
+        if not text[j][0].isalpha():
             text.pop(j)
             continue
         j += 1
@@ -49,25 +50,23 @@ class LLM:
             ],
             "llama": [
                 "llama3.2-3b",
-                "llama3.2-1b",
                 "llama3.1-405b",
-                "llama3.1-70b",
                 "llama3-70b",
-                "llama3-8b",
             ],
             "gemini": ["gemini-1.5-flash", "gemini-1.5-flash-8b", "gemini-1.5-pro"],
         }
         self.exam_info = pd.read_csv("exams.csv")
+        self.exams = ["18-spring-mid", "21-fall-mid", "18-spring-final", "21-fall-final"]
 
     def call_model(self, exams_path, model_type, exams, model_names, iterations):
-        for exam in exams:
-            for model_name in model_names:
-                print("model", model_name)
+        for model_name in model_names:
+            for exam in exams:
+                print("model", model_name, "exam", exam)
                 df = pd.DataFrame()
                 if os.path.exists(f"results/{model_name}_text_{exam}.csv"):
                     df = pd.read_csv(f"results/{model_name}_text_{exam}.csv")
 
-                iteration = 0
+                iteration = len(df.columns)
                 while iteration < iterations:
                     answers = []
                     lst = sorted(os.listdir(exams_path + "/" + exam))
@@ -83,11 +82,11 @@ class LLM:
                                 file_index += 1
                                 continue
 
-                            with open(f"{exams_path}/{exam}/{file}", "r") as file:
-                                data = file.read()
+                            with open(f"{exams_path}/{exam}/{file}", "r") as f:
+                                data = f.read()
                                 text = None
 
-                                message = "\n" + data + "\nFor each question, answer in the format 'QUESTION_NUMER DOT SPACE ANSWER_CHOICE'. Do not provide any explanation and answer with a single letter for each question. Carefully think about the number of questions on each page."
+                                message = "\n" + data + "\nDo not provide any explanation and answer with a single letter for each question. Carefully think about the number of questions on each page. For each question, answer in the format 'digit. letter'. For example, '1. a'.\n"
 
                                 model = None
                                 if model_type == "claude":
@@ -170,9 +169,10 @@ class LLM:
                                 else:
                                     raise ValueError("Invalid model type")
                                 
+                                print(file)
                                 print(text)
                                 text = getChars(text)
-                                print("parsed\n", len(text), text)
+                                print(len(text), text)
                                 if len(text) == 0:
                                     continue
                                 answers.extend(text)
@@ -188,10 +188,42 @@ class LLM:
                         iteration += 1
                         print(df)
                         df.to_csv(f"results/{model_name}_text_{exam}.csv", index=False)
+    
+    def get_results(self, models, exams):
+        results = pd.DataFrame(index=exams)
+        
+        if os.path.exists(f'results.csv'):
+            results = pd.read_csv(f'results.csv')
+            results.set_index('exam', inplace=True)
+        
+        for model in models:
+            dct = {}
+            if model not in results.columns:
+                results[model] = [-1.0 for _ in range(len(self.exams))]
+            # print(results)
+
+            for exam in exams:
+                outputs =  pd.read_csv(f"results/{model}_text_{exam}.csv")
+                answers = pd.read_csv(f'answers/{exam}.csv')
+
+                if outputs.shape[0] != answers.shape[0]:
+                    raise ValueError("Number of rows in outputs and answers do not match")
+
+                dct[exam] = (outputs[f'{exam}0'] == answers['answer']).sum() / answers.shape[0]
+                
+            for ex, v in dct.items():
+                results.loc[ex, model] = v
+                print(results)
+
+        results.rename_axis('exam', inplace=True)
+        
+        results.to_csv(f'results.csv')
+    
 
 def main():
     llm = LLM()
-    llm.call_model("text", "claude", ["18-spring-mid", "21-fall-mid", "18-spring-final", "21-fall-final"], llm.models["claude"], 5)
+    # llm.call_model("text", "llama", [llm.exams[0]], [llm.models["llama"][1]], 1)
+    llm.get_results(['llama3.1-405b', "claude-3-5-sonnet-latest", 'gemini-1.5-pro', 'gpt-4o'], llm.exams)
 
 if __name__ == "__main__":
     main()

@@ -7,7 +7,7 @@ def test(text):
       break
     text[j] = text[j].strip()
 
-    pattern = r"\b\d{1,3}\.\s\(?([A-Za-z])\)?\s*"
+    pattern = r"\b\d{1,3}\.\s?\(?([A-Za-z])\)?\s*"
 
     match = re.search(pattern, text[j])
     if match:
@@ -22,5 +22,6 @@ def test(text):
       continue
     j += 1
   print(text)
+  print(len(text))
 
-test(['1. A', '2. A', '3. A', '4. A', '5. A', '6. A', '7. B', '8. B', '9. A', '10. A'])
+test(['1. A', '2.B', '3. A', '4. A', '5. A', '6. A', '7. B', '8. B', '9. A', '10. A'])

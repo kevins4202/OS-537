@@ -5,9 +5,11 @@ b) Make physical memory more fragmented (externally)
 c) Slow down address translation
 d) Make heap allocation fail more often
 e) None of the above
+
 PART III: Next up is Minus, who created Minux. Minus, well, they really love system complexity,
 so Minux may indeed be the most complicated of the OSes. Let’s analyze what Minus has
 created!
+
 17. Minux uses kernel mode, user mode, and a new mode called “supervisor” mode. When a user
 program runs in “supervisor” mode, it is still restricted (like user mode), but can do the following: change
 the length of the timer interrupt interval, including turning it oﬀ. Overall, would you say that supervisor
@@ -17,6 +19,7 @@ b) Ensures more eﬃcient, application-aware timing interrupts
 c) Better integrates scheduling and virtual memory mechanisms
 d) Limits the OS’s ability to retain control of the machine if user code runs in supervisor mode
 e) None of the above
+
 18. Minux employs a (two-level) multi-level page table. Assume a 32-bit virtual address space, and 4 KB
 pages. Also assume each page table entry (PTE) is 4 bytes in size. How many PTEs fit onto one page?
 a) 1
@@ -24,6 +27,7 @@ b) 32
 c) 1024
 d) 4096
 e) None of the above
+
 19. Assuming a two-level multi-level page table (32-bit virtual addresses, 4KB pages, 4-byte PTE size), what is
 the minimum number of valid virtual pages in an address space such that the multi-level page table becomes
 its maximum size?
@@ -32,6 +36,7 @@ b) 1024
 c) 2048
 d) 4096
 e) None of the above
+
 20. Assuming a two-level multi-level page table (32-bit virtual addresses, 4KB pages, 4-byte PTE size), what is
 the minimum number of pages needed for the multi-level page table (including the page directory) when there
 are 1025 contiguous valid pages somewhere in the virtual address space?
@@ -40,4 +45,3 @@ b) 4
 c) 5
 d) 1025
 e) None of the above
-

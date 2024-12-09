@@ -1,11 +1,12 @@
 6. A later version of BeOS was developed for a newer machine and had a much larger virtual address
 space: 1 KB. Assuming it is running on a system with 16 KB of physical memory, what is the largest
 virtual address a BeOS process can generate?
-a)1000
+a) 1000
 b) 1023
 c) 1024
 d) It depends on the base register
 e) It depends on the bounds register
+
 7. With a base and bounds registers in the MMU, BeOS must take care during process switching. In an early
 version of BeOS, it was so simple that the bounds register was never updated upon a process switch, instead
 using the first value — essentially, a random value — that was placed there. What could happen as a result?
@@ -15,6 +16,7 @@ b) A process could fault even though it is accessing what should be valid memory
 c) A process could access physical memory that isn’t assigned to any process
 d) A process could be prevented from accessing valid code
 e) All of the above
+
 8. An earlier version of BeOS was so simple that it didn’t use the base and bounds registers provided in
 hardware. Instead, when a process was loaded into memory, each of its address references was statically
 rewritten to match its location in physical memory. For example, if the program contained the instruction “load
@@ -25,9 +27,11 @@ b) Makes programs run slowly
 c) Allows multiple processes to be active in the system
 d) Aﬀects the type of CPU scheduling policy you can implement
 e) Helps realize a sparse virtual address space
+
 PART II: We now move on to DOS, designed by Dinus. DOS is based around the concept of
 randomness, because to be honest, Dinus was a pretty random kind of dude. You never knew
 what Dinus was up to!
+
 9. The DOS scheduler is based on a random policy. Specifically, every 10 milliseconds (ms), a timer interrupt
 goes oﬀ, and DOS picks a random process to run. This approach is most similar to which following policy?
 a) First-in, First-out
@@ -35,6 +39,7 @@ b) Shortest Job First
 c) Round Robin
 d) Shortest Time To Completion First
 e) Rank-order Scheduling
+
 10. With the DOS random scheduling policy, assume you have two jobs enter the system at the same time,
 each of which needs to run for 30 milliseconds. Assume again a 10 ms timer interrupt. What is the best case
 average response time for these two jobs?
@@ -43,4 +48,3 @@ b) 5 ms
 c) 10 ms
 d) 15 ms
 e) None of the above
-

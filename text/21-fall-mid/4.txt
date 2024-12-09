@@ -45,4 +45,3 @@ b Enables a compact page table, if you use the virtual address space carefully
 c Is always smaller than a linear page table
 d Supports a sparse address space while still also minimizing page table memory usage
 e None of the above
-
