@@ -33,7 +33,7 @@ def getChars(text):
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 class LLM:
     def __init__(self):
-        self.context = "You are an undergraduate Operating Systems student who is going to be taking an exam."
+        self.context = "You are an expert in operating systems with extensive knowledge of topics such as process management, memory management, file systems, synchronization, virtualization, and operating system design principles. You are about to take a multiple choice exam designed to assess your expertise in these areas. The exam includes multiple operating systems concepts listed above."
         self.models = {
             "claude": [
                 "claude-3-5-sonnet-latest",
@@ -222,8 +222,8 @@ class LLM:
 
 def main():
     llm = LLM()
-    # llm.call_model("text", "llama", [llm.exams[0]], [llm.models["llama"][1]], 1)
-    llm.get_results(['llama3.1-405b', "claude-3-5-sonnet-latest", 'gemini-1.5-pro', 'gpt-4o'], llm.exams)
+    llm.call_model("text", "llama", [llm.exams[0]], [llm.models["llama"][0]], 5)
+    # llm.get_results(['llama3.1-405b', "claude-3-5-sonnet-latest", 'gemini-1.5-pro', 'gpt-4o'], llm.exams)
 
 if __name__ == "__main__":
     main()

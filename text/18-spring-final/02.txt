@@ -1,45 +1,45 @@
 Question 16: You have a suspicion that the STL cannot hold all mapping entries in device memory; as a result, sometimes when reading from disk, an extra read is incurred (to look up the mapping information). The workload used here is to repeatedly read some number of blocks N (many times), and report the average time per read; N is increased along the x-axis. Which line on the graph best reflects this result?
-a) Lowest line with drop halfway 
-b) Next lowest dashed line line with drop halfway   
-c) Solid line with rise halfway 
-d) Topmost line which goes up then down 
+a) Lowest line with drop halfway
+b) Next lowest dashed line line with drop halfway  
+c) Solid line with rise halfway
+d) Topmost line which goes up then down
 e) None of the above
 
 For questions 17, 18, and 19, the graph is a disk with three rings: The outermost ring contains 0 to 11 inclusive. The next inner ring contains 12 to 23, inclusive. The third ring contains 24 to 35, inclusive. 
 
-Question 17: Assuming a FIFO scheduling policy, and   a request stream which reads blocks 21, 17, 11, 7, 13,   what is the last block to be read? 
-a) 21 
-b) 17 
-c) 11 
-d) 7 
-e) 13 
+Question 17: Assuming a FIFO scheduling policy, and  a request stream which reads blocks 21, 17, 11, 7, 13,  what is the last block to be read?
+a) 21
+b) 17
+c) 11
+d) 7
+e) 13
 
-Question 18: Assume a SSTF scheduling   policy, and a VERY FAST seek. What is the last block read? 
-a) 21  
-b) 17  
-c) 11  
-d) 7 
+Question 18: Assume a SSTF scheduling  policy, and a VERY FAST seek. What is the last block read?
+a) 21 
+b) 17 
+c) 11 
+d) 7
 e) 13
 
 
-Question 19: Same question, but assume SATF scheduling policy, and a VERY FAST seek. What is the last block read? 
-a) 21 
-b) 17 
-c) 11  
-d) 7  
-e) 13 
+Question 19: Same question, but assume SATF scheduling policy, and a VERY FAST seek. What is the last block read?
+a) 21
+b) 17
+c) 11 
+d) 7 
+e) 13
 
 
-Question 20: In a shingled disk, all writes are log-structured. Specifically, writes are directed to the currently- being-written shingle, and the STL is updated accordingly. As a result, does disk scheduling of write requests (assuming a workload only contains write requests) help performance? 
-a) Yes (always) 
-b) Yes (sometimes) 
-c) No (never) 
-d) Can’t answer without more details  
-e) None of the above 
+Question 20: In a shingled disk, all writes are log-structured. Specifically, writes are directed to the currently- being-written shingle, and the STL is updated accordingly. As a result, does disk scheduling of write requests (assuming a workload only contains write requests) help performance?
+a) Yes (always)
+b) Yes (sometimes)
+c) No (never)
+d) Can’t answer without more details 
+e) None of the above
 
-Question 21: A file descriptor is: 
-a) a system-wide object used to access files 
-b) a per-process integer used to access files 
-c) readily forged 
-d) returned to a process via the close() system call 
+Question 21: A file descriptor is:
+a) a system-wide object used to access files
+b) a per-process integer used to access files
+c) readily forged
+d) returned to a process via the close() system call
 e) hard to understand
